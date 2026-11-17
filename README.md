@@ -6,6 +6,11 @@
 [![Target Market](https://img.shields.io/badge/Target-Japan_%7C_Korea_%7C_Hospitality-green.svg?style=for-the-badge)](https://siapterbang.id)
 [![Platform Version](https://img.shields.io/badge/Version-1.0_Blueprint-orange.svg?style=for-the-badge)](https://siapterbang.id)
 
+> 📚 **Dokumentasi Spesifikasi & Arsitektur Lengkap:**
+> - 📋 **[Product Requirements Document (PRD.md)](./PRD.md)** — Spesifikasi fungsional 100% fitur, sub-fitur, dan logika bisnis untuk 7 Role.
+> - 🏗️ **[System Architecture Blueprint (ARCHITECTURE.md)](./ARCHITECTURE.md)** — Desain database (28 tabel ERD), Multi-Tenancy, RBAC Multi-Role, Cross-Role Locks, & Endpoint API.
+> - 📄 **[Master Blueprint Document (SiapTerbang.pdf)](./SiapTerbang.pdf)** — Dokumen acuan asli spesifikasi sistem.
+
 ---
 
 ## 📌 Executive Summary
