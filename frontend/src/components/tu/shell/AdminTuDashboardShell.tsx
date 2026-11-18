@@ -243,11 +243,11 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (res.error || !res.student) {
-      return res.error || "Gagal menyimpan calon siswa ke Supabase.";
+      return res.error || "Gagal menyimpan calon siswa.";
     }
 
     setStudents((prev) => [res.student!, ...prev]);
-    showToast(`Calon siswa "${input.fullName}" berhasil disimpan ke database Supabase.`, "success");
+    showToast(`Calon siswa "${input.fullName}" berhasil didaftarkan.`, "success");
     return null;
   };
 
@@ -268,7 +268,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.success) {
-      showToast(res.error || "Gagal menyimpan hasil seleksi ke Supabase.", "error");
+      showToast(res.error || "Gagal menyimpan hasil seleksi.", "error");
       return;
     }
 
@@ -300,8 +300,8 @@ export function AdminTuDashboardShell({
 
     showToast(
       input.approveGraduation
-        ? `Siswa lulus seleksi fisik. NIS ${nextNis} diterbitkan ke Supabase.`
-        : "Data fisik siswa berhasil diperbarui di Supabase.",
+        ? `Siswa lulus seleksi fisik. NIS ${nextNis} berhasil diterbitkan.`
+        : "Data fisik siswa berhasil diperbarui.",
       "success"
     );
   };
@@ -316,7 +316,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.success) {
-      showToast(res.error || "Gagal mengalokasikan kamar di Supabase.", "error");
+      showToast(res.error || "Gagal mengalokasikan kamar.", "error");
       return;
     }
 
@@ -340,7 +340,7 @@ export function AdminTuDashboardShell({
       )
     );
 
-    showToast(`Plotting kamar ${targetRoom.roomCode} berhasil disimpan ke Supabase.`, "success");
+    showToast(`Plotting kamar ${targetRoom.roomCode} berhasil disimpan.`, "success");
   };
 
   // Handler 5: Record Dormitory Violation in Supabase
@@ -363,7 +363,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.violation) {
-      showToast(res.error || "Gagal mencatat pelanggaran di Supabase.", "error");
+      showToast(res.error || "Gagal mencatat pelanggaran.", "error");
       return;
     }
 
@@ -385,7 +385,7 @@ export function AdminTuDashboardShell({
 
     setViolations((prev) => [res.violation!, ...prev]);
     showToast(
-      `Poin pelanggaran (+${points}) berhasil dicatat di Supabase.${nextPoints >= 100 ? " PERINGATAN: Siswa di-SUSPEND otomatis!" : ""}`,
+      `Poin pelanggaran (+${points}) berhasil dicatat.${nextPoints >= 100 ? " Siswa berstatus SUSPENDED." : ""}`,
       nextPoints >= 100 ? "error" : "success"
     );
   };
@@ -401,7 +401,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.success) {
-      showToast(res.error || "Gagal melakukan pemutihan poin di Supabase.", "error");
+      showToast(res.error || "Gagal melakukan pemutihan poin.", "error");
       return;
     }
 
@@ -418,7 +418,7 @@ export function AdminTuDashboardShell({
       )
     );
 
-    showToast("Pemutihan poin disiplin berhasil diperbarui di Supabase.", "success");
+    showToast("Poin pelanggaran berhasil diputihkan menjadi 0.", "success");
   };
 
   // Handler 7: Update 7 Legal Documents in Supabase
@@ -438,7 +438,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.success) {
-      showToast(res.error || "Gagal memperbarui status dokumen di Supabase.", "error");
+      showToast(res.error || "Gagal memperbarui status dokumen.", "error");
       return;
     }
 
@@ -464,7 +464,7 @@ export function AdminTuDashboardShell({
       })
     );
 
-    showToast(`Dokumen ${params.docType} berhasil diverifikasi di Supabase.`, "success");
+    showToast(`Status berkas ${params.docType} berhasil diperbarui.`, "success");
   };
 
   // Handler 8: Create Official Letter in Supabase
@@ -489,12 +489,12 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.letter) {
-      showToast(res.error || "Gagal membuat surat dinas di Supabase.", "error");
+      showToast(res.error || "Gagal membuat surat dinas.", "error");
       return null;
     }
 
     setLetters((prev) => [res.letter!, ...prev]);
-    showToast(`Surat No. ${letterNumber} berhasil diterbitkan & disimpan di Supabase.`, "success");
+    showToast(`Surat No. ${letterNumber} berhasil diterbitkan.`, "success");
     return res.letter;
   };
 
@@ -516,7 +516,7 @@ export function AdminTuDashboardShell({
     setIsSyncing(false);
 
     if (!res.offboarding) {
-      showToast(res.error || "Gagal mengajukan offboarding di Supabase.", "error");
+      showToast(res.error || "Gagal mengajukan offboarding.", "error");
       return;
     }
 
@@ -529,7 +529,7 @@ export function AdminTuDashboardShell({
       )
     );
 
-    showToast("Permohonan offboarding & kalkulasi refund berhasil dicatat di Supabase.", "success");
+    showToast("Permohonan offboarding & kalkulasi refund berhasil diajukan.", "success");
   };
 
   return (
@@ -600,31 +600,6 @@ export function AdminTuDashboardShell({
                 <path d="M9 3v18" />
               </svg>
             </button>
-          </div>
-
-          {/* Database Live Status Indicator */}
-          <div className="mb-4 flex items-center justify-between rounded-xl bg-[#202227] px-3 py-2 text-[11px]">
-            <div className="flex items-center gap-2">
-              <span
-                className={`h-2 w-2 rounded-full ${
-                  isLoading
-                    ? "animate-pulse bg-[#f59e0b]"
-                    : isSyncing
-                    ? "animate-spin bg-[#3b82f6]"
-                    : "bg-[#22c55e]"
-                }`}
-              />
-              <span className="font-semibold text-[#c7cbd4]">
-                {isLoading
-                  ? "Menghubungkan Supabase..."
-                  : isSyncing
-                  ? "Menyimpan ke Cloud..."
-                  : "Supabase Database Live"}
-              </span>
-            </div>
-            <span className="font-mono text-[10px] text-[#ffe11d]">
-              {students.length} Siswa
-            </span>
           </div>
 
           {/* Search Box matching Axiom */}
@@ -894,19 +869,11 @@ export function AdminTuDashboardShell({
         {/* Top Greeting Header Row */}
         <header className={styles.topHeaderRow}>
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className={styles.greetingHeading}>
-                Welcome back, Nadia Putri!
-              </h1>
-              {isSyncing && (
-                <span className="flex items-center gap-1.5 rounded-full bg-[#fef3c7] px-2.5 py-0.5 text-[11px] font-bold text-[#92400e]">
-                  <span className="h-2 w-2 animate-spin rounded-full border-2 border-[#92400e] border-t-transparent" />
-                  Sinkronisasi Database...
-                </span>
-              )}
-            </div>
+            <h1 className={styles.greetingHeading}>
+              Welcome back, Nadia Putri!
+            </h1>
             <p className={styles.greetingSubtext}>
-              Data live dari Supabase PostgreSQL: PPDB, 7 berkas legalitas, asrama, dan surat dinas LPK Nusantara Jaya.
+              Pantau metrik PPDB, 7 berkas legalitas, asrama, dan surat dinas LPK Nusantara Jaya secara real-time.
             </p>
           </div>
 
@@ -964,7 +931,7 @@ export function AdminTuDashboardShell({
                 <div className="absolute right-0 top-12 z-40 w-80 rounded-2xl border border-[#eceef2] bg-[#ffffff] p-4 shadow-xl">
                   <div className="flex items-center justify-between border-b border-[#f1f2f5] pb-2">
                     <span className="text-[13px] font-bold text-[#141518]">
-                      Alert Center Admin TU (Supabase Live)
+                      Alert Center Admin TU
                     </span>
                     <button
                       type="button"
@@ -977,11 +944,11 @@ export function AdminTuDashboardShell({
                   <div className="mt-2.5 space-y-2 text-[12px]">
                     <div className="rounded-xl bg-[#fdeceb] p-2.5 text-[#9e2316]">
                       <strong>{metrics.expiringH30Count} Dokumen H-30:</strong>{" "}
-                      Paspor & MCU siswa terdeteksi mendekati tanggal kedaluwarsa pada database.
+                      Paspor & MCU siswa terdeteksi mendekati tanggal kedaluwarsa.
                     </div>
                     <div className="rounded-xl bg-[#fffbeb] p-2.5 text-[#92400e]">
                       <strong>{metrics.totalApplicantsWaiting} PPDB Baru:</strong>{" "}
-                      Menunggu verifikasi fisik & penerbitan NIS di Supabase.
+                      Menunggu verifikasi fisik & penerbitan NIS.
                     </div>
                   </div>
                 </div>
@@ -1005,21 +972,21 @@ export function AdminTuDashboardShell({
           </div>
         </header>
 
-        {/* Database Loading Skeleton */}
+        {/* Loading Skeleton */}
         {isLoading ? (
           <div className="flex min-h-[460px] w-full flex-col items-center justify-center gap-3 rounded-2xl border border-[#eceef2] bg-[#fafbfc]">
             <div className="h-9 w-9 animate-spin rounded-full border-3 border-[#141518] border-t-[#ffe11d]" />
             <div className="text-sm font-bold text-[#141518]">
-              Mengambil Data Live dari Database Supabase...
+              Memuat data operasional...
             </div>
             <div className="text-xs text-[#717682]">
-              Menghubungkan tabel students, dormitory_rooms, dan 7 berkas legalitas.
+              Menyiapkan data siswa, kamar asrama, dan berkas legalitas.
             </div>
           </div>
         ) : dbError ? (
           <div className="rounded-2xl border border-[#fca5a5] bg-[#fef2f2] p-6 text-center">
             <div className="text-base font-bold text-[#991b1b]">
-              Gagal Memuat Data Supabase
+              Gagal Memuat Data Operasional
             </div>
             <div className="mt-1 text-sm text-[#b91c1c]">{dbError}</div>
             <button
