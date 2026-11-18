@@ -17,21 +17,25 @@ export function CloudlightHero({
       className="flex min-h-[100svh] w-full justify-center overflow-clip px-2 pt-2 pb-0"
     >
       <div className="bevel-hero-sky relative w-full overflow-hidden rounded-[24px] pt-24 sm:pt-28">
-        {/* Professional Commercial Airliner in Morning Cloudlight Sky */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[540px] w-full overflow-hidden">
+        {/* Full-Container Unified Airplane & Sky Backdrop (No hard horizontal cut-off line, soft radial clear-zone behind headline text) */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[24px]"
+        >
           <img
             src="/bevel/hero-airplane.jpg"
-            alt="Pesawat komersial pemberangkatan kandidat CPMI SiapTerbang"
+            alt=""
             width={1600}
             height={900}
             fetchPriority="high"
-            className="h-full w-full object-cover object-center opacity-55"
+            className="h-full w-full object-cover object-[50%_68%] opacity-45 mix-blend-multiply scale-105"
           />
+          {/* Radial clear-zone behind the centered typography + smooth vertical blend into #fff9ee at the bottom */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, rgba(207,227,255,0.25) 0%, rgba(229,240,255,0.72) 58%, #fff9ee 100%)",
+                "radial-gradient(ellipse 52% 38% at 50% 24%, rgba(220,235,255,0.92) 0%, rgba(225,238,255,0.65) 55%, rgba(255,249,238,0) 100%), linear-gradient(180deg, rgba(207,227,255,0.35) 0%, rgba(232,242,255,0.25) 55%, rgba(255,249,238,0.92) 88%, #fff9ee 100%)",
             }}
           />
         </div>
@@ -42,47 +46,30 @@ export function CloudlightHero({
           alt=""
           width={1440}
           height={420}
-          className="pointer-events-none absolute inset-x-0 top-2 z-10 mx-auto w-[calc(100%-1rem)] rounded-t-[24px] object-cover opacity-80 mix-blend-screen"
+          className="pointer-events-none absolute inset-x-0 top-0 z-10 mx-auto w-full rounded-t-[24px] object-cover opacity-85 mix-blend-screen"
         />
 
-        {/* Hero Copy Block (100% Bevel Scale: 80px H1, 24px Subtitle) */}
-        <div className="relative z-20 mx-auto flex max-w-[960px] flex-col items-center px-4 text-center">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#ffffff]/85 px-4 py-1.5 text-[13px] font-semibold text-[#222326] shadow-2xs ring-1 ring-[#222326]/8 backdrop-blur-md">
-            <svg
-              aria-hidden="true"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#415eee"
-              strokeWidth="2.2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-            </svg>
-            <span>Platform Web SaaS Multi-Tenant LPK & Penempatan Luar Negeri</span>
-          </div>
-
-          <h1 id="hero-heading" className="bevel-hero-display max-w-[820px]">
+        {/* Hero Copy Block (100% Bevel Scale: Clean 2-Line 80px H1, 24px Subtitle, Stars, Black CTA Button) */}
+        <div className="relative z-20 mx-auto flex max-w-[920px] flex-col items-center px-4 text-center">
+          <h1 id="hero-heading" className="bevel-hero-display max-w-[780px]">
             Pendamping Operasional LPK Terkoneksi
           </h1>
 
-          <p className="bevel-body mt-6 max-w-[680px]">
+          <p className="bevel-body mt-5 max-w-[640px]">
             Kelola seluruh operasional LPK Anda di satu dashboard web desktop, mulai dari pemberkasan, disiplin asrama, dan Rirekisho otomatis hingga dana talangan.
           </p>
 
-          {/* Rating Strip + Charcoal Action Button */}
-          <div className="mt-7 flex flex-col items-center gap-4">
+          {/* Rating Strip + Charcoal Action Button (Exact Bevel Hero sequence) */}
+          <div className="mt-7 flex flex-col items-center gap-3.5">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-0.5 text-[#ffca00]" aria-label="Rating 4.9 dari 5">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <svg key={i} width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <svg key={i} width="17" height="17" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                 ))}
               </div>
-              <span className="text-[16px] font-medium text-[#747679]">
+              <span className="text-[15px] font-medium text-[#747679]">
                 4.9 / 7 Role Terintegrasi LPK
               </span>
             </div>
@@ -90,12 +77,12 @@ export function CloudlightHero({
             <button
               type="button"
               onClick={() => onOpenWorkspaceModal("DEMO_TRIAL")}
-              className="inline-flex min-h-[54px] items-center gap-3 rounded-[16px] bg-[#1f2025] px-7 py-3 text-[#ffffff] shadow-lg transition-transform hover:bg-[#000000] active:scale-[0.98]"
+              className="inline-flex min-h-[52px] items-center gap-3 rounded-[14px] bg-[#1f2025] px-6 py-2.5 text-[#ffffff] shadow-md transition-transform hover:bg-[#000000] active:scale-[0.98]"
             >
               <svg
                 aria-hidden="true"
-                width="22"
-                height="22"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -111,79 +98,67 @@ export function CloudlightHero({
                 <p className="text-[10px] leading-none font-medium text-[#ebf0f8]/80">
                   Web Desktop Multi-Tenant
                 </p>
-                <p className="text-[17px] leading-tight font-semibold text-[#ffffff]">
+                <p className="text-[16px] leading-tight font-semibold text-[#ffffff]">
                   Buka Dashboard LPK
                 </p>
               </div>
             </button>
 
-            <p className="text-[15px] text-[#747679]">
+            <p className="text-[14px] text-[#747679]">
               Mulai ruang kerja namalpk.siapterbang.id secara gratis hari ini.
             </p>
           </div>
         </div>
 
-        {/* .hero_bottom: Web Desktop SaaS Dashboard Showcase + Floating Widget Columns */}
-        <div className="bevel-hero-bottom-mask relative z-20 mx-auto mt-10 flex w-full max-w-[1440px] justify-center px-4 pt-2 pb-10">
-          {/* Left & Right Floating SaaS Widget Cards */}
+        {/* .hero_bottom: Web Desktop SaaS Dashboard Showcase + Balanced Floating Widget Columns */}
+        <div className="bevel-hero-bottom-mask relative z-20 mx-auto mt-10 flex w-full max-w-[1400px] items-start justify-center gap-5 px-4 pt-2 pb-10">
+          {/* Left Floating Widgets Column */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-x-6 top-6 bottom-0 hidden justify-between xl:flex"
+            className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
           >
-            {/* Left Floating Widgets */}
-            <div className="flex w-[280px] flex-col gap-3.5 pt-8">
-              <div className="rounded-[20px] bg-[#ffffff]/95 p-4 shadow-[0_8px_28px_rgba(0,0,0,0.08)] backdrop-blur-md">
-                <div className="flex items-center gap-2 text-[11px] font-semibold text-[#747679]">
-                  <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
-                  <span>GATEKEEPER SENSEI</span>
-                </div>
-                <p className="mt-1.5 text-[13px] font-medium leading-snug text-[#222326]">
-                  14 kandidat lulus evaluasi N4 dan otomatis terbuka di modul <strong>Smart Matching</strong>.
-                </p>
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-[#747679]">
+                <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
+                <span>GATEKEEPER SENSEI</span>
               </div>
-
-              <div className="rounded-[20px] bg-[#ffffff]/95 p-4 shadow-[0_8px_28px_rgba(0,0,0,0.08)]">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-semibold text-[#222326]">Expiry Tracker TU</span>
-                  <span className="rounded-full bg-[#ffab94]/35 px-2.5 py-0.5 text-[11px] font-bold text-[#a93f22]">
-                    H-24 MCU
-                  </span>
-                </div>
-                <p className="mt-1 text-[12px] text-[#747679]">
-                  Notifikasi perpanjangan MCU terkirim otomatis ke siswa & TU.
-                </p>
-              </div>
+              <p className="mt-1.5 text-[12.5px] font-medium leading-snug text-[#222326]">
+                14 kandidat lulus evaluasi N4 dan otomatis terbuka di modul <strong>Smart Matching</strong>.
+              </p>
             </div>
 
-            {/* Right Floating Widgets */}
-            <div className="flex w-[280px] flex-col gap-3.5 pt-8">
-              <div className="rounded-[20px] bg-[#ffffff]/95 p-4 shadow-[0_8px_28px_rgba(0,0,0,0.08)] backdrop-blur-md">
-                <div className="flex items-center justify-between text-[11px] font-semibold text-[#747679]">
-                  <span>WHATSAPP ORANG TUA</span>
-                  <span className="text-[#1e8300]">Terkirim ✓✓</span>
-                </div>
-                <p className="mt-1.5 text-[13px] font-medium leading-snug text-[#222326]">
-                  Kuitansi Digital PDF ber-QR Code terkirim ke WhatsApp wali saat SPP lunas.
-                </p>
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-[#222326]">Expiry Tracker TU</span>
+                <span className="rounded-full bg-[#ffab94]/35 px-2.5 py-0.5 text-[10.5px] font-bold text-[#a93f22]">
+                  H-24 MCU
+                </span>
               </div>
+              <p className="mt-1.5 text-[12px] leading-snug text-[#747679]">
+                Notifikasi perpanjangan MCU terkirim otomatis ke siswa & Admin TU.
+              </p>
+            </div>
 
-              <div className="rounded-[20px] bg-[#ffffff]/95 p-4 shadow-[0_8px_28px_rgba(0,0,0,0.08)]">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-semibold text-[#222326]">Auto-Rirekisho JIS</span>
-                  <span className="rounded-full bg-[#b9a6ff]/30 px-2.5 py-0.5 text-[11px] font-bold text-[#583ec2]">
-                    1-Klik PDF
-                  </span>
-                </div>
-                <p className="mt-1 text-[12px] text-[#747679]">
-                  CV Jepang & Surat Pengantar Disnaker/Imigrasi berkop resmi LPK.
-                </p>
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center justify-between text-[11.5px] font-semibold text-[#222326]">
+                <span>Tren Kelulusan SO</span>
+                <span className="font-mono text-[#415eee]">+18.4%</span>
+              </div>
+              <div className="mt-2.5 flex h-11 items-end gap-1.5">
+                {[40, 55, 48, 70, 66, 85, 94].map((v, i) => (
+                  <div
+                    key={i}
+                    className="flex-1 rounded-t bg-[#415eee]/80"
+                    style={{ height: `${v}%` }}
+                  />
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Center Web Desktop SaaS Browser Window (Replacing Mobile Phone Mockup) */}
-          <div className="relative z-20 w-full max-w-[820px]">
-            <div className="overflow-hidden rounded-[24px] bg-[#1f2025] p-2.5 shadow-[0_32px_80px_-16px_rgba(31,32,37,0.42)] ring-1 ring-[#ffffff]/25">
+          {/* Center Web Desktop SaaS Browser Window */}
+          <div className="relative z-20 w-full max-w-[820px] shrink-0">
+            <div className="overflow-hidden rounded-[24px] bg-[#1f2025] p-2.5 shadow-[0_28px_70px_-15px_rgba(31,32,37,0.38)] ring-1 ring-[#ffffff]/30">
               {/* macOS Browser Top Chrome Bar */}
               <div className="flex items-center justify-between rounded-t-[16px] bg-[#141518] px-4 py-2.5 text-[#ebf0f8]">
                 <div className="flex items-center gap-2">
@@ -263,7 +238,7 @@ export function CloudlightHero({
                       { title: "Kelengkapan Berkas", pct: "100%", sub: "KTP, Paspor, MCU & ID CPMI", color: "#b9a6ff", offset: "0" },
                     ].map((g) => (
                       <div key={g.title} className="flex items-center gap-3 rounded-[18px] bg-[#ffffff] p-3.5 shadow-2xs ring-1 ring-[#222326]/5">
-                        <svg width="54" height="54" viewBox="0 0 54 54" className="shrink-0" aria-hidden="true">
+                        <svg width="52" height="52" viewBox="0 0 54 54" className="shrink-0" aria-hidden="true">
                           <circle cx="27" cy="27" r="21" stroke="#ebf0f8" strokeWidth="5" fill="none" />
                           <circle
                             cx="27"
@@ -314,6 +289,46 @@ export function CloudlightHero({
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+
+          {/* Right Floating Widgets Column */}
+          <div
+            aria-hidden="true"
+            className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
+          >
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center justify-between text-[11px] font-semibold text-[#747679]">
+                <span>WHATSAPP ORANG TUA</span>
+                <span className="text-[#1e8300]">Terkirim ✓✓</span>
+              </div>
+              <p className="mt-1.5 text-[12.5px] font-medium leading-snug text-[#222326]">
+                Kuitansi Digital PDF ber-QR Code terkirim ke WhatsApp wali saat SPP lunas.
+              </p>
+            </div>
+
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-[#222326]">Auto-Rirekisho JIS</span>
+                <span className="rounded-full bg-[#b9a6ff]/30 px-2.5 py-0.5 text-[10.5px] font-bold text-[#583ec2]">
+                  1-Klik PDF
+                </span>
+              </div>
+              <p className="mt-1.5 text-[12px] leading-snug text-[#747679]">
+                CV Jepang & Surat Pengantar Disnaker/Imigrasi berkop resmi LPK.
+              </p>
+            </div>
+
+            <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
+              <div className="flex items-center justify-between">
+                <span className="text-[12px] font-semibold text-[#222326]">Siklus Rematching</span>
+                <span className="rounded-full bg-[#31ce01]/20 px-2.5 py-0.5 text-[10.5px] font-bold text-[#1e8300]">
+                  Many-to-Many
+                </span>
+              </div>
+              <p className="mt-1.5 text-[12px] leading-snug text-[#747679]">
+                Kandidat gagal wawancara otomatis kembali ke Pool Siap Mensetsu.
+              </p>
             </div>
           </div>
         </div>
