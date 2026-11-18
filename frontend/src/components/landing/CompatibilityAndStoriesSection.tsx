@@ -440,15 +440,7 @@ export function CompatibilityAndStoriesSection({
         className="bevel-section-pad w-full overflow-hidden"
       >
         <div className="bevel-container flex flex-col items-center text-center">
-          <img
-            src="/bevel/apple-awards.avif"
-            alt="Penghargaan Standar Sistem Operasional LPK & Multi-Tenant"
-            width={352}
-            height={68}
-            className="h-auto w-[300px] sm:w-[352px] opacity-85"
-          />
-
-          <h2 id="stories-heading" className="bevel-display mt-10 max-w-[880px]">
+          <h2 id="stories-heading" className="bevel-display max-w-[880px]">
             Dipercaya ribuan kandidat CPMI dalam perjalanan menuju terbang
           </h2>
         </div>
