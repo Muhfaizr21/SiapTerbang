@@ -210,21 +210,34 @@ export function TuOverviewFeature({
                 <h2 className={styles.surfaceCardTitle}>
                   Statistik PPDB & Pemberkasan Siswa
                 </h2>
-                <p className="mt-0.5 text-[12px] text-[#7c8089]">
+                <p className="mt-0.5 text-[12px] text-[#666C78]">
                   Klik batang bulan untuk melihat detail kelulusan NIS dan berkas legalitas
                 </p>
               </div>
-              <select
-                aria-label="Filter periode grafik"
-                value={chartPeriod}
-                onChange={(e) =>
-                  setChartPeriod(e.target.value as "Month" | "Batch")
-                }
-                className="rounded-xl border border-[#eceef2] bg-[#f9fafb] px-3 py-1.5 text-[12.5px] font-semibold text-[#23252b] focus:outline-none"
-              >
-                <option value="Month">Bulanan (2026)</option>
-                <option value="Batch">Per Angkatan</option>
-              </select>
+              <div className={styles.segmentedTrack}>
+                <button
+                  type="button"
+                  onClick={() => setChartPeriod("Month")}
+                  className={
+                    chartPeriod === "Month"
+                      ? styles.segmentedTabActive
+                      : styles.segmentedTab
+                  }
+                >
+                  Bulanan (2026)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setChartPeriod("Batch")}
+                  className={
+                    chartPeriod === "Batch"
+                      ? styles.segmentedTabActive
+                      : styles.segmentedTab
+                  }
+                >
+                  Per Angkatan
+                </button>
+              </div>
             </div>
 
             {/* Y-Axis Hint + 12 Yellow Bars */}
@@ -313,9 +326,10 @@ export function TuOverviewFeature({
               <button
                 type="button"
                 onClick={() => onNavigateTab("pemberkasan")}
-                className="rounded-lg px-2.5 py-1 text-[12px] font-semibold text-[#5a5e67] hover:bg-[#f4f5f8]"
+                className={styles.btnGhostSubtle}
               >
-                Lihat Detail →
+                <span>Lihat Detail</span>
+                <span>→</span>
               </button>
             </div>
 
@@ -483,9 +497,10 @@ export function TuOverviewFeature({
                   <button
                     type="button"
                     onClick={() => onNavigateTab(task.targetTab)}
-                    className="shrink-0 rounded-lg border border-[#eceef2] bg-[#ffffff] px-2.5 py-1 text-[11px] font-semibold text-[#141518] hover:bg-[#ffe11d]"
+                    className={styles.btnSecondaryOutline}
                   >
-                    Buka
+                    <span>Buka</span>
+                    <span>→</span>
                   </button>
                 </div>
               ))}

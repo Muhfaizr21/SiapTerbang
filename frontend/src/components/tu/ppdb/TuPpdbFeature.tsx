@@ -156,7 +156,7 @@ export function TuPpdbFeature({
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
-            <div className="flex rounded-full bg-[#f4f5f8] p-1">
+            <div className={styles.segmentedTrack}>
               {(
                 [
                   { id: "ALL", label: "Semua" },
@@ -168,11 +168,11 @@ export function TuPpdbFeature({
                   key={tab.id}
                   type="button"
                   onClick={() => setFilterStatus(tab.id)}
-                  className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-semibold transition-all ${
+                  className={
                     filterStatus === tab.id
-                      ? "bg-[#141518] text-[#ffffff]"
-                      : "text-[#686c75] hover:text-[#141518]"
-                  }`}
+                      ? styles.segmentedTabActive
+                      : styles.segmentedTab
+                  }
                 >
                   {tab.label}
                 </button>
@@ -185,9 +185,21 @@ export function TuPpdbFeature({
                 setFormError(null);
                 setShowAddModal(true);
               }}
-              className="rounded-full bg-[#ffe11d] px-4 py-2 text-[13px] font-bold text-[#111215] shadow-sm transition-transform hover:scale-[1.02]"
+              className={styles.btnPrimaryYellow}
             >
-              + Tambah Pendaftar PPDB
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                aria-hidden="true"
+              >
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+              <span>Tambah Pendaftar PPDB</span>
             </button>
           </div>
         </div>
@@ -326,15 +338,17 @@ export function TuPpdbFeature({
                       <button
                         type="button"
                         onClick={() => handleOpenPhysicalModal(st)}
-                        className={`rounded-xl px-3.5 py-2 text-[12px] font-bold transition-colors ${
+                        className={
                           st.ppdbStatus === "MENUNGGU_SELEKSI"
-                            ? "bg-[#ffe11d] text-[#111215] hover:bg-[#f5d200]"
-                            : "border border-[#eceef2] bg-[#ffffff] text-[#141518] hover:bg-[#f4f5f8]"
-                        }`}
+                            ? styles.btnPrimaryYellow
+                            : styles.btnSecondaryOutline
+                        }
                       >
-                        {st.ppdbStatus === "MENUNGGU_SELEKSI"
-                          ? "Input Fisik & Luluskan"
-                          : "Edit Nilai Fisik"}
+                        <span>
+                          {st.ppdbStatus === "MENUNGGU_SELEKSI"
+                            ? "Input Fisik & Luluskan"
+                            : "Edit Nilai Fisik"}
+                        </span>
                       </button>
                     </td>
                   </tr>

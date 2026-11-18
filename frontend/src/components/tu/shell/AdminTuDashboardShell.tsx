@@ -539,18 +539,24 @@ export function AdminTuDashboardShell({
         <div
           role="status"
           aria-live="polite"
-          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl px-5 py-3.5 shadow-2xl transition-all duration-300 ${
+          className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl px-5 py-3.5 shadow-[0_16px_40px_rgba(0,0,0,0.28)] transition-all duration-300 ${
             toast.type === "error"
-              ? "border border-[#f87171] bg-[#7f1d1d] text-[#ffffff]"
-              : "border border-[#ffe11d]/40 bg-[#141518] text-[#ffe11d]"
+              ? "border border-[#f87171]/60 bg-[#7f1d1d] text-[#ffffff]"
+              : "border border-[#FFE11D]/45 bg-[#111318] text-[#FFE11D]"
           }`}
         >
-          <span className="flex h-2.5 w-2.5 rounded-full bg-[#ffe11d]" />
-          <span className="text-[13px] font-medium text-[#f1f2f5]">{toast.message}</span>
+          <span
+            className={`flex h-2.5 w-2.5 rounded-full ${
+              toast.type === "error" ? "bg-[#fca5a5]" : "bg-[#FFE11D]"
+            }`}
+          />
+          <span className="text-[13px] font-semibold text-[#f1f2f5]">
+            {toast.message}
+          </span>
         </div>
       )}
 
-      {/* Left Dark Sidebar matching Axiom Reference */}
+      {/* Left Dark Sidebar — Precision Viewport-Locked Rail */}
       <aside className={styles.axiomSidebar} aria-label="Sidebar Menu Admin TU">
         <div>
           {/* Top Brand Logo Row */}
@@ -573,17 +579,23 @@ export function AdminTuDashboardShell({
                   <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.3c.4-.2.6-.6.5-1.1z" />
                 </svg>
               </div>
-              <div>
-                <div className={styles.axiomBrandTitle}>SiapTerbang</div>
-                <div className="text-[11px] text-[#8e94a0]">
-                  Role 03 • Admin Tata Usaha
+              <div className="min-w-0">
+                <div className="flex items-center gap-1.5">
+                  <span className={styles.axiomBrandTitle}>SiapTerbang</span>
+                  <span className="rounded-md bg-[#FFE11D]/15 border border-[#FFE11D]/30 px-1.5 py-0.5 font-mono text-[9.5px] font-extrabold tracking-wider text-[#FFE11D] uppercase">
+                    TU
+                  </span>
+                </div>
+                <div className="truncate text-[11px] font-medium text-[#7D8390]">
+                  Tata Usaha & Asrama
                 </div>
               </div>
             </Link>
 
             <button
               type="button"
-              aria-label="Ringkas menu sidebar"
+              aria-label="Kembali ke Overview"
+              title="Dashboard Overview"
               onClick={() => handleNavigateTab("overview")}
               className={styles.sidebarCollapseBtn}
             >
@@ -596,22 +608,22 @@ export function AdminTuDashboardShell({
                 strokeWidth="2"
                 aria-hidden="true"
               >
-                <rect width="18" height="18" x="3" y="3" rx="2" />
+                <rect width="18" height="18" x="3" y="3" rx="3" />
                 <path d="M9 3v18" />
               </svg>
             </button>
           </div>
 
-          {/* Search Box matching Axiom */}
+          {/* Search Box with Quick Clear */}
           <div className={styles.sidebarSearchBox}>
             <svg
-              className="text-[#777c87] shrink-0"
+              className="text-[#6E7480] shrink-0"
               width="14"
               height="14"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.2"
               aria-hidden="true"
             >
               <circle cx="11" cy="11" r="8" />
@@ -621,15 +633,26 @@ export function AdminTuDashboardShell({
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search here..."
+              placeholder="Cari siswa, NIS, NIK..."
               aria-label="Cari siswa, NIS, atau NIK"
               className={styles.sidebarSearchInput}
             />
-            <span className={styles.sidebarKbdBadge}>⌘K</span>
+            {searchQuery ? (
+              <button
+                type="button"
+                aria-label="Bersihkan pencarian"
+                onClick={() => setSearchQuery("")}
+                className="text-[11px] font-bold text-[#9CA2AE] hover:text-white cursor-pointer"
+              >
+                ✕
+              </button>
+            ) : (
+              <span className={styles.sidebarKbdBadge}>⌘K</span>
+            )}
           </div>
 
           {/* MAIN MENU */}
-          <div className={styles.sidebarSectionLabel}>MAIN MENU</div>
+          <div className={styles.sidebarSectionLabel}>OPERASIONAL UTAMA</div>
           <nav className={styles.sidebarNavList} aria-label="Menu Utama Admin TU">
             <button
               type="button"
@@ -640,8 +663,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -650,12 +674,12 @@ export function AdminTuDashboardShell({
                   strokeWidth="2.2"
                   aria-hidden="true"
                 >
-                  <rect width="7" height="7" x="3" y="3" rx="1" />
-                  <rect width="7" height="7" x="14" y="3" rx="1" />
-                  <rect width="7" height="7" x="14" y="14" rx="1" />
-                  <rect width="7" height="7" x="3" y="14" rx="1" />
+                  <rect width="7" height="7" x="3" y="3" rx="1.5" />
+                  <rect width="7" height="7" x="14" y="3" rx="1.5" />
+                  <rect width="7" height="7" x="14" y="14" rx="1.5" />
+                  <rect width="7" height="7" x="3" y="14" rx="1.5" />
                 </svg>
-                <span>Dashboard Overview</span>
+                <span className="truncate">Dashboard Overview</span>
               </span>
             </button>
 
@@ -668,8 +692,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -683,7 +708,7 @@ export function AdminTuDashboardShell({
                   <line x1="19" y1="8" x2="19" y2="14" />
                   <line x1="22" y1="11" x2="16" y2="11" />
                 </svg>
-                <span>PPDB & Seleksi Awal</span>
+                <span className="truncate">PPDB & Seleksi</span>
               </span>
               <span
                 className={
@@ -705,8 +730,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -718,7 +744,7 @@ export function AdminTuDashboardShell({
                   <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
                   <polyline points="9 22 9 12 15 12 15 22" />
                 </svg>
-                <span>Data Induk & Asrama</span>
+                <span className="truncate">Data Induk & Asrama</span>
               </span>
             </button>
 
@@ -731,8 +757,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -743,8 +770,9 @@ export function AdminTuDashboardShell({
                 >
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                   <polyline points="14 2 14 8 20 8" />
+                  <path d="m9 15 2 2 4-4" />
                 </svg>
-                <span>7 Berkas & Expiry H-30</span>
+                <span className="truncate">Pemberkasan & H-30</span>
               </span>
               <span
                 className={
@@ -759,7 +787,7 @@ export function AdminTuDashboardShell({
           </nav>
 
           {/* SETTINGS & DOKUMEN DINAS */}
-          <div className={styles.sidebarSectionLabel}>DOKUMEN & LAPORAN</div>
+          <div className={styles.sidebarSectionLabel}>DOKUMEN & PELAPORAN</div>
           <nav className={styles.sidebarNavList} aria-label="Menu Dokumen & Laporan">
             <button
               type="button"
@@ -770,8 +798,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -783,7 +812,7 @@ export function AdminTuDashboardShell({
                   <rect width="20" height="16" x="2" y="4" rx="2" />
                   <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                 </svg>
-                <span>Generator Surat Resmi</span>
+                <span className="truncate">Generator Surat</span>
               </span>
             </button>
 
@@ -796,8 +825,9 @@ export function AdminTuDashboardShell({
                   : styles.sidebarMenuItem
               }
             >
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -806,15 +836,18 @@ export function AdminTuDashboardShell({
                   strokeWidth="2.2"
                   aria-hidden="true"
                 >
-                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                  <path d="M16 17l5-5-5-5" />
+                  <path d="M21 12H9" />
+                  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                 </svg>
-                <span>Offboarding & Disnaker</span>
+                <span className="truncate">Offboarding & Dinas</span>
               </span>
             </button>
 
             <Link href="/login" className={styles.sidebarMenuItem}>
-              <span className="flex items-center gap-2.5">
+              <span className="flex items-center gap-2.5 min-w-0">
                 <svg
+                  className="shrink-0"
                   width="16"
                   height="16"
                   viewBox="0 0 24 24"
@@ -823,27 +856,30 @@ export function AdminTuDashboardShell({
                   strokeWidth="2.2"
                   aria-hidden="true"
                 >
-                  <circle cx="12" cy="12" r="3" />
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  <path d="M12 20h9" />
+                  <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
                 </svg>
-                <span>Ganti Role / Portal</span>
+                <span className="truncate">Ganti Role / Portal</span>
               </span>
             </Link>
           </nav>
         </div>
 
-        {/* Bottom Dark Card matching Axiom "UPCOMING EVENT" */}
+        {/* Bottom Dark Card — Axiom Upcoming Event Style */}
         <div className={styles.sidebarUpcomingCard}>
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#777c87]">
-            PERINGATAN H-30 TERDEKAT
+          <div className="flex items-center justify-between">
+            <span className="text-[9.5px] font-extrabold uppercase tracking-[0.09em] text-[#7D8390]">
+              PERINGATAN H-30 TERDEKAT
+            </span>
+            <span className="h-2 w-2 rounded-full bg-[#FFE11D] shadow-[0_0_8px_#FFE11D]" />
           </div>
-          <div className="mt-1 flex items-center justify-between gap-2">
-            <div>
-              <div className="text-[13.5px] font-bold text-[#ffffff]">
+          <div className="mt-2 flex items-center justify-between gap-2.5">
+            <div className="min-w-0">
+              <div className="truncate text-[13px] font-bold text-[#FFFFFF]">
                 MCU & Paspor Siswa
               </div>
-              <div className="text-[11px] text-[#9ca1ab]">
-                10:00 WIB - 11:00 WIB
+              <div className="text-[11px] font-medium text-[#8E94A0]">
+                Jadwal Cek • 10:00 WIB
               </div>
             </div>
             <button
@@ -852,7 +888,18 @@ export function AdminTuDashboardShell({
               onClick={() => handleNavigateTab("pemberkasan")}
               className={styles.sidebarYellowArrowBtn}
             >
-              →
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.6"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
             </button>
           </div>
           <div className="mt-3 flex flex-wrap gap-1.5">
@@ -869,6 +916,14 @@ export function AdminTuDashboardShell({
         {/* Top Greeting Header Row */}
         <header className={styles.topHeaderRow}>
           <div>
+            <div className="mb-1 flex items-center gap-2">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-[#141518] px-2 py-0.5 font-mono text-[10px] font-bold tracking-wider text-[#FFE11D] uppercase">
+                LPK NUSANTARA JAYA
+              </span>
+              <span className="text-[11.5px] font-semibold text-[#7D8390]">
+                • Sistem Informasi Administrasi & Pemberkasan CPMI
+              </span>
+            </div>
             <h1 className={styles.greetingHeading}>
               Welcome back, Nadia Putri!
             </h1>
@@ -878,6 +933,29 @@ export function AdminTuDashboardShell({
           </div>
 
           <div className={styles.headerRightTools}>
+            {/* Quick Action: PPDB */}
+            <button
+              type="button"
+              onClick={() => handleNavigateTab("ppdb")}
+              className="hidden sm:inline-flex items-center gap-1.5 rounded-xl bg-[#FFFFFF] border border-[#E2E5ED] px-3.5 py-2 text-[12px] font-bold text-[#141518] shadow-[0_1px_2px_rgba(16,24,40,0.04)] transition-all hover:bg-[#F2F4F8] hover:border-[#CFD4E0] active:scale-95 cursor-pointer"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                aria-hidden="true"
+              >
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <line x1="19" y1="8" x2="19" y2="14" />
+                <line x1="22" y1="11" x2="16" y2="11" />
+              </svg>
+              <span>PPDB ({metrics.totalApplicantsWaiting})</span>
+            </button>
+
             {/* Generator Surat Quick Action Button */}
             <button
               type="button"
@@ -921,35 +999,49 @@ export function AdminTuDashboardShell({
                   <path d="M13.73 21a2 2 0 0 1-3.46 0" />
                 </svg>
                 {metrics.expiringH30Count > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-[#c93b2b] text-[10px] font-bold text-[#ffffff]">
+                  <span className="absolute -right-1 -top-1 flex h-4.5 min-w-4.5 items-center justify-center rounded-full bg-[#D92D20] px-1 text-[10px] font-extrabold text-[#FFFFFF] shadow-xs">
                     {metrics.expiringH30Count}
                   </span>
                 )}
               </button>
 
               {showNotifDrawer && (
-                <div className="absolute right-0 top-12 z-40 w-80 rounded-2xl border border-[#eceef2] bg-[#ffffff] p-4 shadow-xl">
-                  <div className="flex items-center justify-between border-b border-[#f1f2f5] pb-2">
-                    <span className="text-[13px] font-bold text-[#141518]">
+                <div className="absolute right-0 top-12 z-40 w-80 rounded-2xl border border-[#E2E5ED] bg-[#FFFFFF] p-4 shadow-[0_16px_40px_rgba(16,24,40,0.14)]">
+                  <div className="flex items-center justify-between border-b border-[#F1F2F5] pb-2.5">
+                    <span className="text-[13px] font-extrabold text-[#141518]">
                       Alert Center Admin TU
                     </span>
                     <button
                       type="button"
                       onClick={() => setShowNotifDrawer(false)}
-                      className="text-[11px] font-bold text-[#72767f]"
+                      className="rounded-md px-2 py-0.5 text-[11px] font-bold text-[#666C78] hover:bg-[#F2F4F8] cursor-pointer"
                     >
                       Tutup
                     </button>
                   </div>
-                  <div className="mt-2.5 space-y-2 text-[12px]">
-                    <div className="rounded-xl bg-[#fdeceb] p-2.5 text-[#9e2316]">
+                  <div className="mt-3 space-y-2 text-[12px]">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowNotifDrawer(false);
+                        handleNavigateTab("pemberkasan");
+                      }}
+                      className="w-full text-left rounded-xl border border-[#FECDCA] bg-[#FEF3F2] p-2.5 text-[#912018] transition-colors hover:bg-[#FEE4E2] cursor-pointer"
+                    >
                       <strong>{metrics.expiringH30Count} Dokumen H-30:</strong>{" "}
                       Paspor & MCU siswa terdeteksi mendekati tanggal kedaluwarsa.
-                    </div>
-                    <div className="rounded-xl bg-[#fffbeb] p-2.5 text-[#92400e]">
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowNotifDrawer(false);
+                        handleNavigateTab("ppdb");
+                      }}
+                      className="w-full text-left rounded-xl border border-[#FEDF89] bg-[#FFFAEB] p-2.5 text-[#93370D] transition-colors hover:bg-[#FEF0C7] cursor-pointer"
+                    >
                       <strong>{metrics.totalApplicantsWaiting} PPDB Baru:</strong>{" "}
                       Menunggu verifikasi fisik & penerbitan NIS.
-                    </div>
+                    </button>
                   </div>
                 </div>
               )}
@@ -957,14 +1049,14 @@ export function AdminTuDashboardShell({
 
             {/* User Profile Pill */}
             <div className={styles.profilePill}>
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#141518] text-[13px] font-extrabold text-[#ffe11d]">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#141518] text-[12.5px] font-extrabold text-[#FFE11D] shadow-xs">
                 NP
               </div>
               <div className="pr-1">
-                <div className="text-[13px] font-bold leading-tight text-[#141518]">
+                <div className="text-[12.5px] font-extrabold leading-tight text-[#141518]">
                   Nadia Putri
                 </div>
-                <div className="text-[11px] text-[#777b84]">
+                <div className="text-[11px] font-medium text-[#666C78]">
                   tu@lpknusantara.siapterbang.id
                 </div>
               </div>

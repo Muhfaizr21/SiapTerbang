@@ -80,23 +80,34 @@ export function TuSuratFeature({
     }
   };
 
+  const nextLetterNumber = `${String(letters.length + 42).padStart(3, "0")}/TU-LPKN/XI/2026`;
+
   return (
     <div className="space-y-5">
+      {/* Header Banner */}
       <div className={styles.surfaceCard}>
-        <h2 className="text-[19px] font-bold text-[#141518]">
-          Generator Surat Resmi Berkop LPK (Auto-Fill Data Induk)
-        </h2>
-        <p className="mt-0.5 text-[13px] text-[#72767f]">
-          Tarik otomatis biodata siswa ke dalam template surat pengantar Paspor Imigrasi, Rekomendasi Disnaker ID CPMI, atau Izin Orang Tua tanpa ketik ulang.
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div>
+            <h2 className="text-[18px] font-extrabold tracking-tight text-[#111317]">
+              Generator Surat Resmi Berkop LPK (Auto-Fill Data Induk)
+            </h2>
+            <p className="mt-0.5 text-[13px] text-[#666C78]">
+              Tarik otomatis biodata siswa ke dalam template surat pengantar Paspor Imigrasi, Rekomendasi Disnaker ID CPMI, atau Izin Orang Tua tanpa ketik ulang.
+            </p>
+          </div>
+          <span className="inline-flex items-center gap-1.5 rounded-xl bg-[#F2F4F7] border border-[#E4E7EC] px-3 py-1.5 font-mono text-[11.5px] font-bold text-[#344054]">
+            <span>Nomor Urut Berikutnya:</span>
+            <strong className="text-[#111317]">{nextLetterNumber}</strong>
+          </span>
+        </div>
 
         {bannerText && (
-          <div className="mt-4 flex items-center justify-between rounded-xl border border-[#23a041]/30 bg-[#eaf9ee] px-4 py-2.5 text-[12.5px] font-semibold text-[#156829]">
+          <div className="mt-4 flex items-center justify-between rounded-xl border border-[#ABEFC6] bg-[#ECFDF3] px-4 py-2.5 text-[12.5px] font-bold text-[#067647]">
             <span>{bannerText}</span>
             <button
               type="button"
               onClick={() => setBannerText(null)}
-              className="font-bold underline"
+              className="rounded-md px-2 py-0.5 text-[11.5px] font-extrabold hover:bg-[#D1FADF] cursor-pointer"
             >
               Tutup
             </button>
@@ -108,22 +119,27 @@ export function TuSuratFeature({
         {/* Left 5 Cols: Generator Configuration Form & History */}
         <div className={styles.bentoRightCol}>
           <div className={styles.surfaceCard}>
-            <h3 className={styles.surfaceCardTitle}>
-              Konfigurasi Penerbitan Surat
-            </h3>
+            <div className="flex items-center justify-between border-b border-[#ECEEF2] pb-3">
+              <h3 className={styles.surfaceCardTitle}>
+                Konfigurasi Penerbitan Surat
+              </h3>
+              <span className="rounded-md bg-[#FFE11D]/35 border border-[#E5C700]/50 px-2 py-0.5 text-[10.5px] font-extrabold text-[#111215]">
+                Auto-Fill Aktif
+              </span>
+            </div>
 
             <form
               onSubmit={handleGenerateAndPrint}
               className="mt-4 space-y-3.5"
             >
               <div>
-                <label className="block text-[12px] font-bold text-[#363942]">
-                  Pilih Siswa / Kandidat
+                <label className={styles.formLabel}>
+                  Pilih Siswa / Kandidat CPMI
                 </label>
                 <select
                   value={selectedStudentId}
                   onChange={(e) => setSelectedStudentId(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px] font-semibold"
+                  className={styles.formSelect}
                 >
                   {students.map((st) => (
                     <option key={st.id} value={st.id}>
@@ -134,7 +150,7 @@ export function TuSuratFeature({
               </div>
 
               <div>
-                <label className="block text-[12px] font-bold text-[#363942]">
+                <label className={styles.formLabel}>
                   Jenis Template Surat Resmi
                 </label>
                 <select
@@ -142,10 +158,10 @@ export function TuSuratFeature({
                   onChange={(e) =>
                     handleLetterTypeChange(e.target.value as OfficialLetterType)
                   }
-                  className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px] font-semibold"
+                  className={styles.formSelect}
                 >
                   <option value="PENGANTAR_PASPOR">
-                    1. Surat Pengantar Paspor (Imigrasi)
+                    1. Surat Pengantar Paspor (Kantor Imigrasi)
                   </option>
                   <option value="REKOMENDASI_DISNAKER">
                     2. Surat Rekomendasi Disnaker / ID CPMI
@@ -157,7 +173,7 @@ export function TuSuratFeature({
               </div>
 
               <div>
-                <label className="block text-[12px] font-bold text-[#363942]">
+                <label className={styles.formLabel}>
                   Instansi Tujuan Surat
                 </label>
                 <input
@@ -165,13 +181,13 @@ export function TuSuratFeature({
                   required
                   value={destinationAgency}
                   onChange={(e) => setDestinationAgency(e.target.value)}
-                  className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px]"
+                  className={styles.formInput}
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <div>
-                  <label className="block text-[12px] font-bold text-[#363942]">
+                  <label className={styles.formLabel}>
                     Pejabat Penandatangan
                   </label>
                   <input
@@ -179,36 +195,62 @@ export function TuSuratFeature({
                     required
                     value={signerName}
                     onChange={(e) => setSignerName(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px]"
+                    className={styles.formInput}
                   />
                 </div>
                 <div>
-                  <label className="block text-[12px] font-bold text-[#363942]">
-                    Jabatan
+                  <label className={styles.formLabel}>
+                    Jabatan Resmi
                   </label>
                   <input
                     type="text"
                     required
                     value={signerRole}
                     onChange={(e) => setSignerRole(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px]"
+                    className={styles.formInput}
                   />
                 </div>
               </div>
 
-              <div className="flex gap-2.5 pt-2">
+              <div className="flex flex-wrap sm:flex-nowrap gap-2.5 pt-2">
                 <button
                   type="submit"
-                  className="flex-1 rounded-xl bg-[#ffe11d] py-2.5 text-[13px] font-extrabold text-[#111215] hover:bg-[#f5d200]"
+                  className={`flex-1 ${styles.btnPrimaryYellow}`}
                 >
-                  Terbitkan & Simpan Arsip
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    aria-hidden="true"
+                  >
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <path d="m9 15 2 2 4-4" />
+                  </svg>
+                  <span>Terbitkan & Simpan Arsip</span>
                 </button>
                 <button
                   type="button"
                   onClick={() => window.print()}
-                  className="rounded-xl bg-[#141518] px-4 py-2.5 text-[13px] font-bold text-[#ffffff] hover:bg-[#000000]"
+                  className={styles.btnPrimaryDark}
                 >
-                  Cetak PDF A4
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 6 2 18 2 18 9" />
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                    <rect width="12" height="8" x="6" y="14" />
+                  </svg>
+                  <span>Cetak PDF A4</span>
                 </button>
               </div>
             </form>
@@ -216,28 +258,49 @@ export function TuSuratFeature({
 
           {/* Archive History */}
           <div className={styles.surfaceCard}>
-            <h3 className={styles.surfaceCardTitle}>
-              Arsip Surat Keluar Admin TU ({letters.length})
-            </h3>
-            <div className="mt-3 divide-y divide-[#f1f2f5] text-[12.5px]">
+            <div className="flex items-center justify-between border-b border-[#ECEEF2] pb-3">
+              <h3 className={styles.surfaceCardTitle}>
+                Arsip Surat Keluar Admin TU
+              </h3>
+              <span className="rounded-lg bg-[#F2F4F7] border border-[#E4E7EC] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#344054]">
+                {letters.length} Dokumen
+              </span>
+            </div>
+            <div className="mt-3 divide-y divide-[#F2F4F7] text-[12.5px]">
               {letters.map((ltr) => (
                 <div
                   key={ltr.id}
-                  className="flex items-center justify-between gap-2 py-2.5"
+                  className="flex items-center justify-between gap-3 py-3"
                 >
-                  <div>
-                    <div className="font-mono text-[11.5px] font-extrabold text-[#141518]">
-                      {ltr.letterNumber}
+                  <div className="flex items-start gap-3 min-w-0">
+                    <div className="mt-0.5 flex h-8.5 w-8.5 shrink-0 items-center justify-center rounded-lg bg-[#F2F4F7] border border-[#E4E7EC] text-[#344054]">
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        aria-hidden="true"
+                      >
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                        <polyline points="14 2 14 8 20 8" />
+                      </svg>
                     </div>
-                    <div className="font-bold text-[#23252b]">
-                      {ltr.studentName} ({ltr.studentNis || "PPDB"})
-                    </div>
-                    <div className="text-[11px] text-[#72767f]">
-                      {LETTER_TYPE_LABELS[ltr.letterType]} • {ltr.issuedDate}
+                    <div className="min-w-0">
+                      <div className="font-mono text-[11.5px] font-extrabold text-[#111317]">
+                        {ltr.letterNumber}
+                      </div>
+                      <div className="truncate font-bold text-[#23252B]">
+                        {ltr.studentName} ({ltr.studentNis || "PPDB"})
+                      </div>
+                      <div className="truncate text-[11px] font-medium text-[#667085]">
+                        {LETTER_TYPE_LABELS[ltr.letterType]} • {ltr.issuedDate}
+                      </div>
                     </div>
                   </div>
-                  <span className="rounded-full bg-[#e8f8ec] px-2.5 py-0.5 text-[10.5px] font-bold text-[#188633]">
-                    Terbit
+                  <span className="shrink-0 rounded-lg border border-[#ABEFC6] bg-[#ECFDF3] px-2.5 py-1 text-[10.5px] font-extrabold text-[#067647]">
+                    ✓ Terbit
                   </span>
                 </div>
               ))}
@@ -245,159 +308,196 @@ export function TuSuratFeature({
           </div>
         </div>
 
-        {/* Right 7 Cols: Live Official Letterhead A4 Preview */}
+        {/* Right 7 Cols: Live Official Letterhead A4 Preview Workstation */}
         <div className={styles.bentoLeftCol}>
           {selectedStudent && (
-            <div className="rounded-[24px] border border-[#dcdfe6] bg-[#ffffff] p-8 shadow-md">
-              {/* Official LPK Letterhead */}
-              <div className="flex items-center justify-between border-b-2 border-[#141518] pb-4">
-                <div className="flex items-center gap-3.5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#141518] text-[18px] font-extrabold text-[#ffe11d]">
-                    ST
-                  </div>
-                  <div>
-                    <h4 className="text-[16px] font-extrabold uppercase tracking-tight text-[#141518]">
-                      LPK NUSANTARA JAYA INTERNASIONAL
-                    </h4>
-                    <p className="text-[11.5px] text-[#5a5e67]">
-                      Izin SO Kemnaker RI No. KEP.218/LATTAS/XI/2025 •
-                      lpknusantara.siapterbang.id
-                    </p>
-                    <p className="text-[11px] text-[#72767f]">
-                      Jl. Soekarno Hatta No. 412, Kota Bandung, Jawa Barat •
-                      Telp: (022) 7318890
-                    </p>
-                  </div>
+            <div className="rounded-2xl border border-[#E2E5ED] bg-[#EEF1F6] p-4 sm:p-6">
+              {/* Document Preview Top Toolbar */}
+              <div className="mb-3.5 flex flex-wrap items-center justify-between gap-2 px-1">
+                <div className="flex items-center gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#17B26A]" />
+                  <span className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-[#475467]">
+                    PRATINJAU DOKUMEN RESMI A4 • SIAP CETAK
+                  </span>
                 </div>
-                <div className="text-right font-mono text-[11px] text-[#6b707b]">
-                  <div>DOKUMEN RESMI LPK</div>
-                  <div className="font-bold text-[#141518]">
-                    { String(letters.length + 42).padStart(3, "0") }/TU-LPKN/XI/2026
-                  </div>
-                </div>
+                <span className="rounded-md bg-[#FFFFFF] border border-[#D5DAE3] px-2.5 py-0.5 font-mono text-[11px] font-bold text-[#111317]">
+                  No: {nextLetterNumber}
+                </span>
               </div>
 
-              {/* Letter Body */}
-              <div className="mt-6 space-y-4 text-[13px] leading-relaxed text-[#1f2025]">
-                <div className="text-center">
-                  <h5 className="text-[15px] font-extrabold uppercase underline">
-                    {LETTER_TYPE_LABELS[letterType]}
-                  </h5>
-                  <p className="mt-0.5 font-mono text-[12px] text-[#5a5e67]">
-                    Nomor:{" "}
-                    {String(letters.length + 42).padStart(3, "0")}
-                    /TU-LPKN/XI/2026
-                  </p>
-                </div>
-
-                <div>
-                  <p>Kepada Yth.</p>
-                  <p className="font-bold text-[#141518]">
-                    {destinationAgency}
-                  </p>
-                  <p>Di Tempat</p>
-                </div>
-
-                <p>
-                  Dengan hormat, yang bertanda tangan di bawah ini manajemen{" "}
-                  <strong>LPK Nusantara Jaya Internasional</strong> menerangkan
-                  bahwa peserta pelatihan Calon Pekerja Migran Indonesia (CPMI)
-                  berikut:
-                </p>
-
-                <div className="rounded-xl border border-[#eceef2] bg-[#fafbfc] p-4">
-                  <div className="grid grid-cols-3 gap-y-1.5 text-[12.5px]">
-                    <span className="text-[#6b707b]">Nama Lengkap</span>
-                    <span className="col-span-2 font-bold text-[#141518]">
-                      : {selectedStudent.fullName}
-                    </span>
-
-                    <span className="text-[#6b707b]">Nomor Induk Siswa</span>
-                    <span className="col-span-2 font-mono font-bold text-[#141518]">
-                      : {selectedStudent.nis || "CALON-SISWA-PPDB"}
-                    </span>
-
-                    <span className="text-[#6b707b]">NIK KTP</span>
-                    <span className="col-span-2 font-mono font-semibold text-[#141518]">
-                      : {selectedStudent.nik}
-                    </span>
-
-                    <span className="text-[#6b707b]">Tempat, Tgl Lahir</span>
-                    <span className="col-span-2 font-semibold text-[#141518]">
-                      : {selectedStudent.birthPlace},{" "}
-                      {selectedStudent.birthDate}
-                    </span>
-
-                    <span className="text-[#6b707b]">Program Negara</span>
-                    <span className="col-span-2 font-bold text-[#141518]">
-                      : {selectedStudent.targetProgram.replace("_", " ")} (
-                      {selectedStudent.batchName})
-                    </span>
-
-                    <span className="text-[#6b707b]">Nama Orang Tua/Wali</span>
-                    <span className="col-span-2 font-semibold text-[#141518]">
-                      : {selectedStudent.parentName} (WA:{" "}
-                      {selectedStudent.phoneParent})
-                    </span>
-
-                    <span className="text-[#6b707b]">Alamat Domisili</span>
-                    <span className="col-span-2 font-medium text-[#141518]">
-                      : {selectedStudent.address}
-                    </span>
+              {/* Elevated A4 Paper Sheet */}
+              <div className="rounded-xl border border-[#D5DAE3] bg-[#FFFFFF] p-6 sm:p-9 shadow-[0_12px_32px_rgba(16,24,40,0.08)]">
+                {/* Official LPK Letterhead */}
+                <div className="flex flex-wrap items-center justify-between gap-4 border-b-4 border-double border-[#141518] pb-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#141518] text-[17px] font-extrabold text-[#FFE11D] shadow-xs">
+                      ST
+                    </div>
+                    <div>
+                      <h4 className="text-[15.5px] font-extrabold uppercase tracking-tight text-[#111317]">
+                        LPK NUSANTARA JAYA INTERNASIONAL
+                      </h4>
+                      <p className="text-[11px] font-semibold text-[#475467]">
+                        Izin SO Kemnaker RI No. KEP.218/LATTAS/XI/2025 • lpknusantara.siapterbang.id
+                      </p>
+                      <p className="text-[10.5px] text-[#667085]">
+                        Jl. Soekarno Hatta No. 412, Kota Bandung, Jawa Barat • Telp: (022) 7318890
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right font-mono text-[10.5px] text-[#667085]">
+                    <div className="font-bold uppercase tracking-wider">DOKUMEN RESMI LPK</div>
+                    <div className="mt-0.5 rounded bg-[#F2F4F7] px-2 py-0.5 font-extrabold text-[#111317]">
+                      {nextLetterNumber}
+                    </div>
                   </div>
                 </div>
 
-                {letterType === "PENGANTAR_PASPOR" && (
-                  <p>
-                    Adalah benar siswa aktif pelatihan bahasa dan keterampilan
-                    kerja di LPK Nusantara Jaya yang akan mengikuti penempatan
-                    kerja luar negeri. Sehubungan dengan hal tersebut, kami
-                    memohon bantuan pihak Kantor Imigrasi untuk dapat memproses{" "}
-                    <strong>Penerbitan Paspor RI (48 Halaman)</strong> bagi
-                    kandidat yang bersangkutan.
-                  </p>
-                )}
-
-                {letterType === "REKOMENDASI_DISNAKER" && (
-                  <p>
-                    Adalah benar kandidat resmi LPK Nusantara Jaya yang telah
-                    lulus seleksi fisik serta verifikasi berkas dasar. Kami
-                    memohon penerbitan{" "}
-                    <strong>Surat Rekomendasi ID CPMI SiapKerja Disnaker</strong>{" "}
-                    sebagai syarat administrasi penempatan kerja ke luar negeri.
-                  </p>
-                )}
-
-                {letterType === "IZIN_ORANG_TUA_KONTRAK" && (
-                  <p>
-                    Surat ini merupakan dokumen berita acara persetujuan izin
-                    orang tua/wali ({selectedStudent.parentName}) serta ikatan
-                    kontrak pelatihan dan disiplin asrama selama mengikuti
-                    program persiapan penempatan di LPK Nusantara Jaya.
-                  </p>
-                )}
-
-                <div className="flex items-end justify-between pt-6">
-                  <div className="rounded-xl border border-[#eceef2] bg-[#fafbfc] p-3 text-[10.5px] text-[#6b707b]">
-                    <div className="font-mono font-bold text-[#141518]">
-                      QR VERIFIED • SIAPTERBANG
-                    </div>
-                    <div>Hash: ST-2026-{selectedStudent.id.toUpperCase()}</div>
+                {/* Letter Body */}
+                <div className="mt-6 space-y-4 text-[13px] leading-relaxed text-[#1F2025]">
+                  <div className="text-center">
+                    <h5 className="text-[14.5px] font-extrabold uppercase underline decoration-2 underline-offset-4 text-[#111317]">
+                      {LETTER_TYPE_LABELS[letterType]}
+                    </h5>
+                    <p className="mt-1 font-mono text-[11.5px] font-semibold text-[#475467]">
+                      Nomor: {nextLetterNumber}
+                    </p>
                   </div>
 
-                  <div className="text-right">
-                    <p className="text-[12px] text-[#5a5e67]">
-                      Bandung, 18 November 2026
+                  <div className="pt-1">
+                    <p className="text-[#475467]">Kepada Yth.</p>
+                    <p className="font-extrabold text-[#111317]">
+                      {destinationAgency}
                     </p>
-                    <p className="text-[12px] font-semibold text-[#141518]">
-                      {signerRole}
-                    </p>
-                    <div className="my-5 font-mono text-[11px] text-[#188633]">
-                      [Tanda Tangan Digital & Stempel LPK]
+                    <p className="text-[#475467]">Di Tempat</p>
+                  </div>
+
+                  <p>
+                    Dengan hormat, yang bertanda tangan di bawah ini manajemen{" "}
+                    <strong>LPK Nusantara Jaya Internasional</strong> menerangkan
+                    bahwa peserta pelatihan Calon Pekerja Migran Indonesia (CPMI)
+                    berikut:
+                  </p>
+
+                  <div className="rounded-xl border border-[#E4E7EC] bg-[#F9FAFB] p-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-y-2 text-[12.5px]">
+                      <span className="font-medium text-[#667085]">Nama Lengkap</span>
+                      <span className="sm:col-span-2 font-extrabold text-[#111317]">
+                        : {selectedStudent.fullName}
+                      </span>
+
+                      <span className="font-medium text-[#667085]">Nomor Induk Siswa</span>
+                      <span className="sm:col-span-2 font-mono font-bold text-[#111317]">
+                        : {selectedStudent.nis || "CALON-SISWA-PPDB"}
+                      </span>
+
+                      <span className="font-medium text-[#667085]">NIK KTP</span>
+                      <span className="sm:col-span-2 font-mono font-semibold text-[#111317]">
+                        : {selectedStudent.nik}
+                      </span>
+
+                      <span className="font-medium text-[#667085]">Tempat, Tgl Lahir</span>
+                      <span className="sm:col-span-2 font-semibold text-[#111317]">
+                        : {selectedStudent.birthPlace}, {selectedStudent.birthDate}
+                      </span>
+
+                      <span className="font-medium text-[#667085]">Program Negara</span>
+                      <span className="sm:col-span-2 font-bold text-[#111317]">
+                        : {selectedStudent.targetProgram.replace("_", " ")} ({selectedStudent.batchName})
+                      </span>
+
+                      <span className="font-medium text-[#667085]">Nama Orang Tua/Wali</span>
+                      <span className="sm:col-span-2 font-semibold text-[#111317]">
+                        : {selectedStudent.parentName} (WA: {selectedStudent.phoneParent})
+                      </span>
+
+                      <span className="font-medium text-[#667085]">Alamat Domisili</span>
+                      <span className="sm:col-span-2 font-medium text-[#111317]">
+                        : {selectedStudent.address}
+                      </span>
                     </div>
-                    <p className="text-[13px] font-extrabold underline text-[#141518]">
-                      {signerName}
+                  </div>
+
+                  {letterType === "PENGANTAR_PASPOR" && (
+                    <p>
+                      Adalah benar siswa aktif pelatihan bahasa dan keterampilan
+                      kerja di LPK Nusantara Jaya yang akan mengikuti penempatan
+                      kerja luar negeri. Sehubungan dengan hal tersebut, kami
+                      memohon bantuan pihak Kantor Imigrasi untuk dapat memproses{" "}
+                      <strong>Penerbitan Paspor RI (48 Halaman)</strong> bagi
+                      kandidat yang bersangkutan.
                     </p>
+                  )}
+
+                  {letterType === "REKOMENDASI_DISNAKER" && (
+                    <p>
+                      Adalah benar kandidat resmi LPK Nusantara Jaya yang telah
+                      lulus seleksi fisik serta verifikasi berkas dasar. Kami
+                      memohon penerbitan{" "}
+                      <strong>Surat Rekomendasi ID CPMI SiapKerja Disnaker</strong>{" "}
+                      sebagai syarat administrasi penempatan kerja ke luar negeri.
+                    </p>
+                  )}
+
+                  {letterType === "IZIN_ORANG_TUA_KONTRAK" && (
+                    <p>
+                      Surat ini merupakan dokumen berita acara persetujuan izin
+                      orang tua/wali ({selectedStudent.parentName}) serta ikatan
+                      kontrak pelatihan dan disiplin asrama selama mengikuti
+                      program persiapan penempatan di LPK Nusantara Jaya.
+                    </p>
+                  )}
+
+                  <div className="flex flex-wrap items-end justify-between gap-4 pt-6 border-t border-[#F2F4F7]">
+                    <div className="flex items-center gap-3 rounded-xl border border-[#E4E7EC] bg-[#F9FAFB] p-3 text-[10.5px] text-[#667085]">
+                      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#141518] text-[#FFE11D]">
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          aria-hidden="true"
+                        >
+                          <rect width="5" height="5" x="3" y="3" rx="1" />
+                          <rect width="5" height="5" x="16" y="3" rx="1" />
+                          <rect width="5" height="5" x="3" y="16" rx="1" />
+                          <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+                          <path d="M21 21v.01" />
+                          <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+                          <path d="M3 12h.01" />
+                          <path d="M12 3h.01" />
+                          <path d="M12 16v.01" />
+                          <path d="M16 12h1" />
+                          <path d="M21 12v.01" />
+                          <path d="M12 21v-1" />
+                        </svg>
+                      </div>
+                      <div>
+                        <div className="font-mono font-extrabold text-[#111317]">
+                          QR VERIFIED • SIAPTERBANG
+                        </div>
+                        <div className="font-mono text-[10px]">
+                          Hash: ST-2026-{selectedStudent.id.slice(0, 8).toUpperCase()}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="text-right">
+                      <p className="text-[12px] text-[#475467]">
+                        Bandung, 18 November 2026
+                      </p>
+                      <p className="text-[12px] font-bold text-[#111317]">
+                        {signerRole}
+                      </p>
+                      <div className="my-4 inline-flex items-center gap-1.5 rounded-lg border border-[#ABEFC6] bg-[#ECFDF3] px-3 py-1 font-mono text-[10.5px] font-bold text-[#067647]">
+                        <span>✓ Tanda Tangan Digital & Stempel LPK</span>
+                      </div>
+                      <p className="text-[13.5px] font-extrabold underline text-[#111317]">
+                        {signerName}
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>

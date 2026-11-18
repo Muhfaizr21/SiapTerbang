@@ -22,6 +22,13 @@ interface TuPemberkasanFeatureProps {
   }) => void;
 }
 
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/);
+  if (parts.length === 0) return "ST";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[1][0]).toUpperCase();
+}
+
 export function TuPemberkasanFeature({
   students,
   onUpdateDocument,
@@ -44,8 +51,7 @@ export function TuPemberkasanFeature({
 
   // Collect all H-30 expiring documents across all students
   const expiringAlerts: {
-    readonly studentName: string;
-    readonly studentNis: string;
+    readonly student: StudentRecord;
     readonly doc: StudentDocItem;
     readonly badgeText: string;
   }[] = [];
@@ -55,14 +61,25 @@ export function TuPemberkasanFeature({
       const exp = evaluateExpiryStatus(d.expiryDate);
       if (exp.isExpiringH30) {
         expiringAlerts.push({
-          studentName: st.fullName,
-          studentNis: st.nis,
+          student: st,
           doc: d,
           badgeText: exp.badgeText,
         });
       }
     }
   }
+
+  const pendingCount = students.filter((st) =>
+    st.documents.some((d) => d.status === "MENUNGGU")
+  ).length;
+
+  const expiringStudentCount = students.filter((st) =>
+    st.documents.some((d) => evaluateExpiryStatus(d.expiryDate).isExpiringH30)
+  ).length;
+
+  const rejectedCount = students.filter((st) =>
+    st.documents.some((d) => d.status === "DITOLAK")
+  ).length;
 
   const filteredStudents = students.filter((st) => {
     if (filterMode === "PENDING") {
@@ -118,43 +135,60 @@ export function TuPemberkasanFeature({
     <div className="space-y-5">
       {/* H-30 Expiry Tracker Banner */}
       {expiringAlerts.length > 0 && (
-        <div className="rounded-[22px] border border-[#c93b2b]/25 bg-[#fdeceb] p-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#c93b2b] text-[13px] font-extrabold text-[#ffffff]">
-                !
-              </span>
+        <div className="rounded-2xl border border-[#FECDCA] bg-gradient-to-r from-[#FEF3F2] via-[#FFF6F5] to-[#FFFFFF] p-5 shadow-[0_4px_20px_rgba(217,45,32,0.06)]">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-start sm:items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D92D20] text-[#FFFFFF] shadow-[0_4px_12px_rgba(217,45,32,0.3)]">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.4"
+                  aria-hidden="true"
+                >
+                  <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                  <path d="M12 9v4" />
+                  <path d="M12 17h.01" />
+                </svg>
+              </div>
               <div>
-                <h3 className="text-[14px] font-extrabold text-[#9e2316]">
-                  Peringatan Dini Expiry Tracker (Kurang dari 30 Hari)
-                </h3>
-                <p className="text-[12px] text-[#b43224]">
-                  Terdapat {expiringAlerts.length} dokumen Paspor/MCU yang akan
-                  habis masa berlakunya. Segera jadwalkan perpanjangan sebelum
-                  CoE/Visa diajukan.
+                <div className="flex items-center gap-2">
+                  <h3 className="text-[14.5px] font-extrabold text-[#912018]">
+                    Peringatan Dini Expiry Tracker (Kurang dari 30 Hari)
+                  </h3>
+                  <span className="rounded-full bg-[#D92D20] px-2 py-0.5 font-mono text-[10.5px] font-extrabold text-white">
+                    {expiringAlerts.length} Alert Aktif
+                  </span>
+                </div>
+                <p className="mt-0.5 text-[12.5px] font-medium text-[#B42318]">
+                  Terdapat {expiringAlerts.length} dokumen Paspor/MCU yang segera habis masa berlakunya. Klik kartu di bawah untuk memperbarui tanggal masa berlaku sebelum pengajuan CoE/Visa.
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {expiringAlerts.map((item) => (
-              <div
+              <button
                 key={item.doc.id}
-                className="flex items-center justify-between rounded-xl bg-[#ffffff] px-3.5 py-2.5 shadow-2xs"
+                type="button"
+                onClick={() => openVerifyModal(item.student, item.doc)}
+                className="group flex items-center justify-between gap-3 rounded-xl border border-[#FDA29B] bg-[#FFFFFF] px-4 py-3 text-left shadow-[0_2px_6px_rgba(16,24,40,0.04)] transition-all hover:border-[#D92D20] hover:shadow-[0_6px_16px_rgba(217,45,32,0.1)] cursor-pointer"
               >
-                <div>
-                  <div className="text-[12.5px] font-bold text-[#141518]">
-                    {item.studentName}
+                <div className="min-w-0">
+                  <div className="truncate text-[13px] font-extrabold text-[#111317] group-hover:text-[#D92D20]">
+                    {item.student.fullName}
                   </div>
-                  <div className="text-[11px] text-[#72767f]">
-                    {item.doc.label} • Exp: {item.doc.expiryDate}
+                  <div className="mt-0.5 truncate text-[11.5px] font-medium text-[#666C78]">
+                    {item.doc.label} • <span className="font-mono">Exp: {item.doc.expiryDate}</span>
                   </div>
                 </div>
-                <span className="rounded-full bg-[#c93b2b] px-2.5 py-0.5 text-[10.5px] font-extrabold text-[#ffffff]">
+                <span className="shrink-0 rounded-lg bg-[#D92D20] px-2.5 py-1 font-mono text-[10.5px] font-extrabold text-[#FFFFFF] shadow-2xs">
                   {item.badgeText}
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -164,46 +198,54 @@ export function TuPemberkasanFeature({
       <div className={styles.surfaceCard}>
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div>
-            <h2 className="text-[19px] font-bold text-[#141518]">
+            <h2 className="text-[18px] font-extrabold tracking-tight text-[#111317]">
               Manajemen Pemberkasan (7 Dokumen Legalitas) & Expiry Tracker
             </h2>
-            <p className="mt-0.5 text-[13px] text-[#72767f]">
-              Klik pada badge dokumen siswa untuk memvalidasi, menolak beserta catatan revisi, atau mengatur masa berlaku Paspor/MCU.
+            <p className="mt-0.5 text-[13px] text-[#666C78]">
+              Klik pada kartu dokumen siswa untuk memvalidasi, menolak beserta catatan revisi, atau mengatur masa berlaku Paspor/MCU.
             </p>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 rounded-full bg-[#f4f5f8] p-1">
+          <div className={styles.segmentedTrack}>
             {(
               [
-                { id: "ALL", label: "Semua Siswa" },
-                { id: "PENDING", label: "Menunggu Verifikasi" },
-                { id: "EXPIRING_H30", label: "Peringatan H-30" },
-                { id: "REJECTED", label: "Ditolak / Revisi" },
+                { id: "ALL", label: "Semua Siswa", count: students.length },
+                { id: "PENDING", label: "Menunggu Cek", count: pendingCount },
+                { id: "EXPIRING_H30", label: "Peringatan H-30", count: expiringStudentCount },
+                { id: "REJECTED", label: "Ditolak / Revisi", count: rejectedCount },
               ] as const
-            ).map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                onClick={() => setFilterMode(f.id)}
-                className={`rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-all ${
-                  filterMode === f.id
-                    ? "bg-[#141518] text-[#ffffff]"
-                    : "text-[#686c75] hover:text-[#141518]"
-                }`}
-              >
-                {f.label}
-              </button>
-            ))}
+            ).map((f) => {
+              const isActive = filterMode === f.id;
+              return (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setFilterMode(f.id)}
+                  className={isActive ? styles.segmentedTabActive : styles.segmentedTab}
+                >
+                  <span>{f.label}</span>
+                  <span
+                    className={`rounded-md px-1.5 py-0.2 font-mono text-[10.5px] font-extrabold ${
+                      isActive
+                        ? "bg-[#FFE11D] text-[#111215]"
+                        : "bg-[#E2E5ED] text-[#475467]"
+                    }`}
+                  >
+                    {f.count}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
         {toastMsg && (
-          <div className="mt-4 flex items-center justify-between rounded-xl border border-[#23a041]/30 bg-[#eaf9ee] px-4 py-2.5 text-[12.5px] font-semibold text-[#156829]">
+          <div className="mt-4 flex items-center justify-between rounded-xl border border-[#ABEFC6] bg-[#ECFDF3] px-4 py-2.5 text-[12.5px] font-bold text-[#067647]">
             <span>{toastMsg}</span>
             <button
               type="button"
               onClick={() => setToastMsg(null)}
-              className="font-bold underline"
+              className="rounded-md px-2 py-0.5 text-[11.5px] font-extrabold hover:bg-[#D1FADF] cursor-pointer"
             >
               Tutup
             </button>
@@ -217,55 +259,84 @@ export function TuPemberkasanFeature({
           const validCount = st.documents.filter(
             (d) => d.status === "VALID"
           ).length;
+          const hasStudentH30 = st.documents.some(
+            (d) => evaluateExpiryStatus(d.expiryDate).isExpiringH30
+          );
 
           return (
             <div key={st.id} className={styles.surfaceCard}>
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#f1f2f5] pb-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[16px] font-extrabold text-[#141518]">
-                      {st.fullName}
-                    </span>
-                    <span className="rounded bg-[#f4f5f8] px-2 py-0.5 font-mono text-[11.5px] font-bold text-[#363942]">
-                      {st.nis || "PPDB"}
-                    </span>
-                    <span className="rounded bg-[#ffe11d]/40 px-2 py-0.5 text-[11px] font-bold text-[#141518]">
-                      {st.targetProgram.replace("_", " ")}
-                    </span>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#ECEEF2] pb-3.5">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#141518] font-mono text-[13px] font-extrabold text-[#FFE11D]">
+                    {getInitials(st.fullName)}
                   </div>
-                  <p className="mt-0.5 text-[12px] text-[#72767f]">
-                    NIK: {st.nik} • Angkatan: {st.batchName}
-                  </p>
+                  <div>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[15.5px] font-extrabold text-[#111317]">
+                        {st.fullName}
+                      </span>
+                      <span className="rounded-md bg-[#F2F4F7] border border-[#E4E7EC] px-2 py-0.5 font-mono text-[11px] font-bold text-[#344054]">
+                        {st.nis || "CALON SISWA"}
+                      </span>
+                      <span className="rounded-md bg-[#FFE11D]/35 border border-[#E5C700]/40 px-2 py-0.5 text-[10.5px] font-extrabold text-[#111215]">
+                        {st.targetProgram.replace("_", " ")}
+                      </span>
+                    </div>
+                    <p className="mt-0.5 text-[12px] font-medium text-[#666C78]">
+                      NIK: <span className="font-mono">{st.nik}</span> • Angkatan: {st.batchName}
+                    </p>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
+                  {hasStudentH30 && (
+                    <span className="inline-flex items-center gap-1 rounded-lg border border-[#FDA29B] bg-[#FEF3F2] px-2.5 py-1 text-[11.5px] font-extrabold text-[#B42318]">
+                      ● Alert Expiry H-30
+                    </span>
+                  )}
                   <span
-                    className={`rounded-full px-3 py-1 text-[12px] font-extrabold ${
+                    className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1 text-[12px] font-extrabold ${
                       validCount === 7
-                        ? "bg-[#e8f8ec] text-[#188633]"
-                        : "bg-[#fff4e5] text-[#b85d00]"
+                        ? "border-[#ABEFC6] bg-[#ECFDF3] text-[#067647]"
+                        : "border-[#FEDF89] bg-[#FFFAEB] text-[#B54708]"
                     }`}
                   >
-                    {validCount}/7 Berkas Valid
+                    <span>{validCount}/7 Berkas Valid</span>
                   </span>
                 </div>
               </div>
 
               {/* 7 Document Cards Grid */}
-              <div className="mt-3.5 grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-7">
+              <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-7">
                 {st.documents.map((doc) => {
                   const exp = evaluateExpiryStatus(doc.expiryDate);
-                  let badgeStyle =
-                    "border-[#eceef2] bg-[#fafbfc] text-[#6b707b]";
-                  if (doc.status === "VALID") {
-                    badgeStyle =
-                      "border-[#23a041]/30 bg-[#eaf9ee] text-[#156829]";
+
+                  // Card visual state prioritizing H-30 Expiry Alert even if status is VALID
+                  let cardTheme =
+                    "border-[#E4E7EC] bg-[#F9FAFB] hover:border-[#98A2B3]";
+                  let statusBadgeTheme =
+                    "bg-[#E4E7EC] text-[#475467]";
+
+                  if (exp.isExpiringH30) {
+                    cardTheme =
+                      "border-[#FDA29B] bg-[#FEF3F2]/75 hover:border-[#D92D20] hover:bg-[#FEF3F2] shadow-[0_2px_8px_rgba(217,45,32,0.06)]";
+                    statusBadgeTheme =
+                      "bg-[#FEE4E2] text-[#B42318] border border-[#FDA29B]";
+                  } else if (doc.status === "VALID") {
+                    cardTheme =
+                      "border-[#ABEFC6] bg-[#ECFDF3]/55 hover:border-[#17B26A] hover:bg-[#ECFDF3]";
+                    statusBadgeTheme =
+                      "bg-[#D1FADF] text-[#067647]";
                   } else if (doc.status === "MENUNGGU") {
-                    badgeStyle =
-                      "border-[#f59e0b]/40 bg-[#fffbeb] text-[#92400e]";
+                    cardTheme =
+                      "border-[#FEDF89] bg-[#FFFAEB]/80 hover:border-[#F79009] hover:bg-[#FFFAEB]";
+                    statusBadgeTheme =
+                      "bg-[#FEF0C7] text-[#B54708]";
                   } else if (doc.status === "DITOLAK") {
-                    badgeStyle =
-                      "border-[#c93b2b]/40 bg-[#fdeceb] text-[#9e2316]";
+                    cardTheme =
+                      "border-[#FDA29B] bg-[#FEF3F2] hover:border-[#D92D20]";
+                    statusBadgeTheme =
+                      "bg-[#D92D20] text-[#FFFFFF]";
                   }
 
                   return (
@@ -273,44 +344,54 @@ export function TuPemberkasanFeature({
                       key={doc.id}
                       type="button"
                       onClick={() => openVerifyModal(st, doc)}
-                      className={`flex flex-col justify-between rounded-2xl border p-3 text-left transition-transform hover:scale-[1.02] ${badgeStyle}`}
+                      className={`group flex flex-col justify-between rounded-xl border p-3 text-left transition-all duration-150 hover:-translate-y-0.5 cursor-pointer ${cardTheme}`}
                     >
                       <div>
                         <div className="flex items-center justify-between gap-1">
-                          <span className="font-mono text-[11px] font-extrabold uppercase">
+                          <span className="font-mono text-[10.5px] font-extrabold uppercase tracking-wider text-[#344054]">
                             {doc.docType}
                           </span>
-                          <span className="text-[10px] font-extrabold uppercase">
+                          <span
+                            className={`rounded-md px-1.5 py-0.5 text-[9.5px] font-extrabold uppercase ${statusBadgeTheme}`}
+                          >
                             {doc.status.replace("_", " ")}
                           </span>
                         </div>
-                        <div className="mt-1 text-[12px] font-bold text-[#141518]">
+                        <div className="mt-1.5 text-[12.5px] font-extrabold leading-snug text-[#111317]">
                           {doc.label}
                         </div>
-                        <div className="mt-0.5 truncate font-mono text-[10.5px] opacity-80">
+                        <div className="mt-1 truncate rounded bg-black/[0.04] px-1.5 py-0.5 font-mono text-[10.5px] font-semibold text-[#475467]">
                           {doc.documentNumber || "Belum ada nomor"}
                         </div>
                       </div>
 
-                      <div className="mt-2.5 border-t border-current/10 pt-1.5">
+                      <div className="mt-3 border-t border-black/[0.07] pt-2">
                         {exp.hasExpiry ? (
-                          <span
-                            className={`inline-block rounded px-1.5 py-0.5 text-[10px] font-extrabold ${
-                              exp.isExpiringH30
-                                ? "bg-[#c93b2b] text-[#ffffff]"
-                                : "bg-[#141518]/10 text-[#141518]"
-                            }`}
-                          >
-                            {exp.badgeText}
-                          </span>
+                          <div className="flex items-center justify-between gap-1">
+                            <span
+                              className={`inline-block rounded-md px-2 py-0.5 font-mono text-[10px] font-extrabold ${
+                                exp.isExpiringH30
+                                  ? "bg-[#D92D20] text-[#FFFFFF] shadow-2xs"
+                                  : "bg-[#141518]/10 text-[#141518]"
+                              }`}
+                            >
+                              {exp.badgeText}
+                            </span>
+                            <span className="text-[11px] font-bold text-[#344054] opacity-0 transition-opacity group-hover:opacity-100">
+                              Edit →
+                            </span>
+                          </div>
                         ) : doc.status === "DITOLAK" ? (
-                          <span className="line-clamp-1 text-[10px] font-bold text-[#c93b2b]">
+                          <span className="line-clamp-1 text-[10.5px] font-bold text-[#B42318]">
                             Revisi: {doc.rejectionReason}
                           </span>
                         ) : (
-                          <span className="text-[10px] font-semibold opacity-75">
-                            Klik untuk verifikasi →
-                          </span>
+                          <div className="flex items-center justify-between text-[11px] font-bold text-[#344054] group-hover:text-[#111317]">
+                            <span>Verifikasi Berkas</span>
+                            <span className="transition-transform group-hover:translate-x-0.5">
+                              →
+                            </span>
+                          </div>
                         )}
                       </div>
                     </button>
@@ -324,21 +405,26 @@ export function TuPemberkasanFeature({
 
       {/* Document Verification Modal */}
       {editingContext && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#111215]/60 p-4 backdrop-blur-xs">
-          <div className="w-full max-w-md rounded-[24px] bg-[#ffffff] p-6 shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#eceef2] pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0E0F12]/65 p-4 backdrop-blur-xs">
+          <div className="w-full max-w-md rounded-2xl border border-[#E4E7EC] bg-[#FFFFFF] p-6 shadow-[0_24px_48px_rgba(16,24,40,0.24)]">
+            <div className="flex items-center justify-between border-b border-[#ECEEF2] pb-3.5">
               <div>
-                <h3 className="text-[17px] font-bold text-[#141518]">
-                  Verifikasi Berkas: {editingContext.doc.label}
-                </h3>
-                <p className="text-[12px] text-[#72767f]">
-                  Siswa: <strong>{editingContext.student.fullName}</strong>
+                <div className="flex items-center gap-2">
+                  <span className="rounded-md bg-[#141518] px-2 py-0.5 font-mono text-[10px] font-bold text-[#FFE11D]">
+                    {editingContext.doc.docType}
+                  </span>
+                  <h3 className="text-[16.5px] font-extrabold text-[#111317]">
+                    {editingContext.doc.label}
+                  </h3>
+                </div>
+                <p className="mt-0.5 text-[12px] text-[#666C78]">
+                  Kandidat: <strong className="text-[#111317]">{editingContext.student.fullName}</strong> ({editingContext.student.nis || "PPDB"})
                 </p>
               </div>
               <button
                 type="button"
                 onClick={() => setEditingContext(null)}
-                className="rounded-lg px-2 py-1 text-[13px] font-bold text-[#72767f]"
+                className={styles.btnGhostSubtle}
               >
                 ✕
               </button>
@@ -346,16 +432,16 @@ export function TuPemberkasanFeature({
 
             <form
               onSubmit={handleSaveDocVerification}
-              className="mt-4 space-y-3.5"
+              className="mt-4 space-y-4"
             >
               {modalError && (
-                <div className="rounded-xl bg-[#fdeceb] p-3 text-[12px] font-semibold text-[#c93b2b]">
+                <div className="rounded-xl border border-[#FDA29B] bg-[#FEF3F2] p-3 text-[12px] font-bold text-[#B42318]">
                   {modalError}
                 </div>
               )}
 
               <div>
-                <label className="block text-[12px] font-bold text-[#363942]">
+                <label className={styles.formLabel}>
                   Nomor Dokumen Resmi
                 </label>
                 <input
@@ -363,12 +449,12 @@ export function TuPemberkasanFeature({
                   value={docNumber}
                   onChange={(e) => setDocNumber(e.target.value)}
                   placeholder="Contoh: C8941205 / 320401..."
-                  className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 font-mono text-[13px]"
+                  className={`${styles.formInput} font-mono`}
                 />
               </div>
 
               <div>
-                <label className="block text-[12px] font-bold text-[#363942]">
+                <label className={styles.formLabel}>
                   Status Keputusan Verifikasi TU
                 </label>
                 <select
@@ -376,7 +462,7 @@ export function TuPemberkasanFeature({
                   onChange={(e) =>
                     setDocStatus(e.target.value as DocVerificationStatus)
                   }
-                  className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px] font-semibold"
+                  className={styles.formSelect}
                 >
                   <option value="VALID">VALID (Dokumen Sah & Sesuai)</option>
                   <option value="MENUNGGU">MENUNGGU (Antrean Cek)</option>
@@ -390,25 +476,24 @@ export function TuPemberkasanFeature({
               {(editingContext.doc.docType === "PASPOR" ||
                 editingContext.doc.docType === "MCU") && (
                 <div>
-                  <label className="block text-[12px] font-bold text-[#363942]">
+                  <label className={styles.formLabel}>
                     Tanggal Habis Masa Berlaku (Expiry Tracker H-30)
                   </label>
                   <input
                     type="date"
                     value={expiryDate}
                     onChange={(e) => setExpiryDate(e.target.value)}
-                    className="mt-1 w-full rounded-xl border border-[#dcdfe6] px-3 py-2 text-[13px]"
+                    className={styles.formInput}
                   />
-                  <p className="mt-1 text-[11px] text-[#72767f]">
-                    Jika sisa waktu ≤ 30 hari dari tanggal berjalan (2026-11-18),
-                    sistem otomatis memunculkan peringatan merah H-30.
+                  <p className="mt-1.5 text-[11px] font-medium text-[#666C78]">
+                    Jika sisa waktu ≤ 30 hari dari tanggal berjalan, sistem otomatis mengaktifkan peringatan H-30.
                   </p>
                 </div>
               )}
 
               {docStatus === "DITOLAK" && (
                 <div>
-                  <label className="block text-[12px] font-bold text-[#c93b2b]">
+                  <label className="block text-[12px] font-bold text-[#B42318] mb-1.5">
                     Catatan Alasan Penolakan (Wajib Diisi)
                   </label>
                   <textarea
@@ -417,24 +502,35 @@ export function TuPemberkasanFeature({
                     value={rejectionReason}
                     onChange={(e) => setRejectionReason(e.target.value)}
                     placeholder="Jelaskan alasan penolakan agar siswa dapat memperbaiki unggahan..."
-                    className="mt-1 w-full rounded-xl border border-[#c93b2b] px-3 py-2 text-[13px]"
+                    className="w-full rounded-xl border border-[#FDA29B] bg-[#FEF3F2]/40 px-3.5 py-2.5 text-[13px] focus:border-[#D92D20] focus:outline-none"
                   />
                 </div>
               )}
 
-              <div className="flex justify-end gap-2 pt-2">
+              <div className="flex justify-end gap-2.5 pt-3 border-t border-[#ECEEF2]">
                 <button
                   type="button"
                   onClick={() => setEditingContext(null)}
-                  className="rounded-xl border border-[#eceef2] px-4 py-2 text-[13px] font-semibold text-[#5a5e67]"
+                  className={styles.btnSecondaryOutline}
                 >
                   Batal
                 </button>
                 <button
                   type="submit"
-                  className="rounded-xl bg-[#ffe11d] px-5 py-2 text-[13px] font-bold text-[#111215] hover:bg-[#f5d200]"
+                  className={styles.btnPrimaryYellow}
                 >
-                  Simpan Verifikasi
+                  <svg
+                    width="15"
+                    height="15"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    aria-hidden="true"
+                  >
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span>Simpan Verifikasi</span>
                 </button>
               </div>
             </form>
