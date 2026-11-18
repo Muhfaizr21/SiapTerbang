@@ -1,4 +1,4 @@
-package controllers
+package auth
 
 import (
 	"encoding/json"
@@ -6,14 +6,15 @@ import (
 	"strings"
 	"time"
 
-	"siapterbang-backend/internal/models"
+	authModel "siapterbang-backend/internal/models/auth"
+	tenantModel "siapterbang-backend/internal/models/tenant"
 	"siapterbang-backend/internal/views"
 )
 
-type AuthController struct{}
+type Controller struct{}
 
-func NewAuthController() *AuthController {
-	return &AuthController{}
+func NewController() *Controller {
+	return &Controller{}
 }
 
 type LoginRequest struct {
@@ -30,7 +31,7 @@ type RegisterRequest struct {
 	Password  string `json:"password"`
 }
 
-func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		views.Error(w, http.StatusBadRequest, "Payload request tidak valid", err.Error())
@@ -46,13 +47,12 @@ func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Mock model mapping for MVC architecture
-	user := models.User{
+	user := authModel.User{
 		ID:        "usr-demo-001",
 		TenantID:  "tenant-demo-001",
 		Email:     req.Email,
 		FullName:  "Direktur LPK Nusantara",
-		Role:      models.RoleDirektur,
+		Role:      authModel.RoleDirektur,
 		IsActive:  true,
 		CreatedAt: time.Now().UTC(),
 		UpdatedAt: time.Now().UTC(),
@@ -64,7 +64,7 @@ func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (c *AuthController) Register(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Register(w http.ResponseWriter, r *http.Request) {
 	var req RegisterRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		views.Error(w, http.StatusBadRequest, "Payload request tidak valid", err.Error())
@@ -84,30 +84,30 @@ func (c *AuthController) Register(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	tenant := models.Tenant{
+	newTenant := tenantModel.Tenant{
 		ID:          "tenant-" + req.Subdomain,
 		Name:        req.LPKName,
 		Subdomain:   req.Subdomain,
-		Status:      models.TenantStatusTrial,
+		Status:      tenantModel.StatusTrial,
 		TierPlan:    "Paket Pro (Trial 14 Hari)",
 		MaxStudents: 100,
 		CreatedAt:   time.Now().UTC(),
 		UpdatedAt:   time.Now().UTC(),
 	}
 
-	user := models.User{
+	newUser := authModel.User{
 		ID:        "usr-owner-" + req.Subdomain,
-		TenantID:  tenant.ID,
+		TenantID:  newTenant.ID,
 		Email:     req.Email,
 		FullName:  req.FullName,
-		Role:      models.RoleDirektur,
+		Role:      authModel.RoleDirektur,
 		IsActive:  true,
 		CreatedAt: time.Now().UTC(),
 		UpdatedAt: time.Now().UTC(),
 	}
 
 	views.Success(w, http.StatusCreated, "Registrasi LPK berhasil", map[string]any{
-		"tenant": tenant,
-		"user":   user,
+		"tenant": newTenant,
+		"user":   newUser,
 	})
 }

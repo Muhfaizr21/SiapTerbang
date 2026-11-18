@@ -1,4 +1,4 @@
-package controllers
+package health
 
 import (
 	"net/http"
@@ -7,21 +7,21 @@ import (
 	"siapterbang-backend/internal/views"
 )
 
-type HealthController struct {
+type Controller struct {
 	appName     string
 	appEnv      string
 	supabaseURL string
 }
 
-func NewHealthController(appName, appEnv, supabaseURL string) *HealthController {
-	return &HealthController{
+func NewController(appName, appEnv, supabaseURL string) *Controller {
+	return &Controller{
 		appName:     appName,
 		appEnv:      appEnv,
 		supabaseURL: supabaseURL,
 	}
 }
 
-func (c *HealthController) Check(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) Check(w http.ResponseWriter, r *http.Request) {
 	views.Success(w, http.StatusOK, "SiapTerbang API backend is running", map[string]any{
 		"app_name":     c.appName,
 		"env":          c.appEnv,

@@ -8,23 +8,31 @@ Backend API untuk platform SaaS Manajemen Operasional LPK SiapTerbang.
 backend/
 ├── cmd/
 │   └── api/
-│       └── main.go                  # Entry point aplikasi & server lifecycle
+│       └── main.go                         # Entry point aplikasi & server lifecycle
 ├── internal/
 │   ├── config/
-│   │   └── config.go                # Manajemen konfigurasi & environment variable
-│   ├── controllers/                 # CONTROLLER: Request handling & orchestrator logic
-│   │   ├── auth_controller.go       # Auth handlers (Login, Register)
-│   │   └── health_controller.go     # Health check & system status
-│   ├── models/                      # MODEL: Business entities & relational schemas
-│   │   ├── tenant.go                # Data tenant/LPK workspace
-│   │   └── user.go                  # Data pengguna & 6 Role LPK
-│   ├── views/                       # VIEW / PRESENTER: Response formatting & serialization
-│   │   └── json_response.go         # Standardized JSON response envelope
-│   └── routes/                      # ROUTER: HTTP multiplexer & middleware
-│       └── routes.go                # Endpoint mapping
-├── .env.example                     # Contoh variabel lingkungan
-├── .gitignore                       # Git ignore list
-└── go.mod                           # Go module definition
+│   │   └── config.go                       # Konfigurasi & environment loader
+│   ├── controllers/                        # CONTROLLER: Request handling & flow logic
+│   │   ├── auth/                           # Modul Controller Auth
+│   │   │   ├── auth_controller.go          # Handlers: Login & Register LPK
+│   │   │   └── auth_controller_test.go     # Unit tests controller auth
+│   │   └── health/                         # Modul Controller Health
+│   │       ├── health_controller.go        # Handler: Health check API
+│   │       └── health_controller_test.go   # Unit test controller health
+│   ├── models/                             # MODEL: Domain entities & data structures
+│   │   ├── auth/                           # Model Auth & Pengguna
+│   │   │   └── user.go                     # Entitas User & 6 Role LPK RBAC
+│   │   └── tenant/                         # Model Tenant / Lembaga
+│   │       └── tenant.go                   # Entitas Tenant LPK & Status Langganan
+│   ├── views/                              # VIEW: Serializer & response envelope
+│   │   └── json_response.go                # Standardized JSON response (Success & Error)
+│   ├── routes/                             # ROUTER: HTTP Multiplexer & CORS
+│   │   └── routes.go                       # Endpoint mapping
+│   └── supabase/                           # Client SDK & helper koneksi Supabase
+│       └── client.go                       # Ping & client wrapper
+├── .env.example                            # Template environment variable
+├── .gitignore                              # Git ignore rules
+└── go.mod                                  # Go module: siapterbang-backend
 ```
 
 ## Menjalankan Server

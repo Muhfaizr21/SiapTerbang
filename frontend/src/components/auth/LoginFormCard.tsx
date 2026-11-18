@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type { LoginFormValues, LoginValidationErrors } from "@/types/auth";
 import { SIX_LPK_DEMO_ACCOUNTS } from "@/domain/auth-demo-accounts";
 
 export function LoginFormCard() {
+  const router = useRouter();
   const [values, setValues] = useState<LoginFormValues>({
     email: "",
     password: "",
@@ -41,22 +43,36 @@ export function LoginFormCard() {
     setIsLoading(true);
     setErrors({});
 
+    const matched = SIX_LPK_DEMO_ACCOUNTS.find(
+      (a) => a.email.toLowerCase() === values.email.toLowerCase()
+    );
+    const roleTitle = matched ? matched.roleName : "Pengguna LPK Terverifikasi";
+    setSuccessRole(roleTitle);
+
+    // Auto-redirect directly into the workspace
     window.setTimeout(() => {
-      setIsLoading(false);
-      const matched = SIX_LPK_DEMO_ACCOUNTS.find(
-        (a) => a.email.toLowerCase() === values.email.toLowerCase()
-      );
-      setSuccessRole(matched ? matched.roleName : "Pengguna LPK Terverifikasi");
-    }, 700);
+      router.push("/dashboard/tu");
+    }, 600);
   };
 
-  const handleSelectDemoAccount = (acc: typeof SIX_LPK_DEMO_ACCOUNTS[number]) => {
+  const handleSelectDemoAccount = (
+    acc: (typeof SIX_LPK_DEMO_ACCOUNTS)[number],
+    autoLogin = false
+  ) => {
     setValues({
       email: acc.email,
       password: acc.defaultPass,
     });
     setErrors({});
     setShowDemoSelector(false);
+
+    if (autoLogin) {
+      setIsLoading(true);
+      setSuccessRole(acc.roleName);
+      window.setTimeout(() => {
+        router.push("/dashboard/tu");
+      }, 500);
+    }
   };
 
   return (
@@ -113,13 +129,47 @@ export function LoginFormCard() {
           <p className="mt-1 text-[13px] text-[#747679]">
             Membuka sesi untuk <strong>{successRole}</strong>...
           </p>
-          <button
-            type="button"
-            onClick={() => setSuccessRole(null)}
-            className="mt-4 rounded-full bg-[#1f2025] px-5 py-2 text-[13px] font-semibold text-[#ffffff] hover:bg-[#000000]"
-          >
-            Ganti Akun
-          </button>
+
+          <div className="mt-4 flex items-center justify-center gap-2 text-[12.5px] font-semibold text-[#415eee]">
+            <svg
+              className="h-4 w-4 animate-spin text-[#415eee]"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+              />
+            </svg>
+            <span>Mengarahkan otomatis ke Dashboard TU...</span>
+          </div>
+
+          <div className="mt-4 flex flex-col gap-2">
+            <Link
+              href="/dashboard/tu"
+              className="rounded-full bg-[#ffe11d] px-5 py-2.5 text-[13px] font-extrabold text-[#111215] shadow-xs hover:bg-[#f5d200]"
+            >
+              Buka Dashboard Admin TU Sekarang →
+            </Link>
+            <button
+              type="button"
+              onClick={() => setSuccessRole(null)}
+              className="rounded-full bg-[#1f2025] px-5 py-2 text-[13px] font-semibold text-[#ffffff] hover:bg-[#000000]"
+            >
+              Ganti Akun
+            </button>
+          </div>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="mt-6 space-y-3.5" noValidate>
@@ -338,11 +388,10 @@ export function LoginFormCard() {
             {showDemoSelector && (
               <div className="mt-2 space-y-1.5 rounded-xl border border-[#ebf0f8] bg-[#ffffff] p-2 text-left">
                 {SIX_LPK_DEMO_ACCOUNTS.map((acc) => (
-                  <button
+                  <div
                     key={acc.id}
-                    type="button"
-                    onClick={() => handleSelectDemoAccount(acc)}
-                    className="flex w-full items-center justify-between rounded-lg p-2 text-left hover:bg-[#f8f9fc]"
+                    onClick={() => handleSelectDemoAccount(acc, acc.id === "admin-tu")}
+                    className="flex w-full cursor-pointer items-center justify-between rounded-lg p-2 text-left hover:bg-[#f8f9fc]"
                   >
                     <div>
                       <p className="text-[12.5px] font-bold text-[#222326]">
@@ -352,12 +401,26 @@ export function LoginFormCard() {
                         {acc.email}
                       </p>
                     </div>
-                    <span
-                      className={`rounded px-2 py-0.5 text-[10px] font-semibold ${acc.badgeColor}`}
-                    >
-                      Pilih
-                    </span>
-                  </button>
+                    <div className="flex items-center gap-1.5">
+                      <span
+                        className={`rounded px-2 py-0.5 text-[10px] font-semibold ${acc.badgeColor}`}
+                      >
+                        Pilih
+                      </span>
+                      {acc.id === "admin-tu" && (
+                        <button
+                          type="button"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSelectDemoAccount(acc, true);
+                          }}
+                          className="rounded bg-[#ffe11d] px-2 py-0.5 text-[10.5px] font-bold text-[#111215] hover:bg-[#f5d200]"
+                        >
+                          Masuk Langsung →
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 ))}
               </div>
             )}

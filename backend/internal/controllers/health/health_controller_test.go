@@ -1,4 +1,4 @@
-package controllers
+package health
 
 import (
 	"encoding/json"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestHealthCheck(t *testing.T) {
-	ctrl := NewHealthController("SiapTerbang-Test", "test", "https://owlvnrhtsqkosuwtidlf.supabase.co")
+	ctrl := NewController("SiapTerbang-Test", "test", "https://owlvnrhtsqkosuwtidlf.supabase.co")
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/health", nil)
 	rr := httptest.NewRecorder()

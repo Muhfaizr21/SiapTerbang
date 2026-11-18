@@ -14,11 +14,11 @@ import type {
 } from "@/types/landing";
 
 export const NAVIGATION_LINKS: ReadonlyArray<NavLinkItem> = [
-  { id: "nav-solusi", label: "Solusi LPK", href: "#fitur-utama" },
-  { id: "nav-role", label: "6 Role & Kunci Sistem", href: "#arsitektur-role" },
-  { id: "nav-modul", label: "Fitur Unggulan", href: "#modul-lengkap" },
-  { id: "nav-keamanan", label: "Keamanan Data", href: "#isolasi-data" },
-  { id: "nav-harga", label: "Biaya Langganan", href: "#paket-langganan" },
+  { id: "nav-solusi", label: "Solusi", href: "#fitur-utama" },
+  { id: "nav-fitur", label: "Fitur", href: "#modul-lengkap" },
+  { id: "nav-role", label: "Role", href: "#arsitektur-role" },
+  { id: "nav-keamanan", label: "Keamanan", href: "#isolasi-data" },
+  { id: "nav-harga", label: "Harga", href: "#paket-langganan" },
 ];
 
 export const HERO_FLOATING_CARDS: ReadonlyArray<HeroFloatingMetricCard> = [
