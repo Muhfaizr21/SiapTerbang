@@ -1,0 +1,15 @@
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl =
+  process.env.NEXT_PUBLIC_SUPABASE_URL ||
+  process.env.SUPABASE_URL ||
+  "https://owlvnrhtsqkosuwtidlf.supabase.co";
+
+const supabasePublishableKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
+  process.env.SUPABASE_PUBLISHABLE_KEY ||
+  "";
+
+export function createBrowserSupabaseClient() {
+  return createClient(supabaseUrl, supabasePublishableKey);
+}

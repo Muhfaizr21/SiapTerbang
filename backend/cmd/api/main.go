@@ -20,7 +20,7 @@ func main() {
 	cfg := config.LoadConfig()
 
 	// Instantiate Controllers (MVC)
-	healthCtrl := controllers.NewHealthController(cfg.AppName, cfg.AppEnv)
+	healthCtrl := controllers.NewHealthController(cfg.AppName, cfg.AppEnv, cfg.SupabaseURL)
 	authCtrl := controllers.NewAuthController()
 
 	// Instantiate Router & Register Routes

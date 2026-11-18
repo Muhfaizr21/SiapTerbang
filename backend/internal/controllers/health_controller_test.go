@@ -8,7 +8,7 @@ import (
 )
 
 func TestHealthCheck(t *testing.T) {
-	ctrl := NewHealthController("SiapTerbang-Test", "test")
+	ctrl := NewHealthController("SiapTerbang-Test", "test", "https://owlvnrhtsqkosuwtidlf.supabase.co")
 
 	req := httptest.NewRequest(http.MethodGet, "/api/v1/health", nil)
 	rr := httptest.NewRecorder()
