@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import type { FooterLinkColumn } from "@/types/landing";
 
 export interface ReadyCalloutAndFooterProps {
@@ -12,205 +11,233 @@ export function ReadyCalloutAndFooter({
   footerColumns,
   onOpenWorkspaceModal,
 }: ReadyCalloutAndFooterProps) {
-  const [qrCollapsed, setQrCollapsed] = useState(false);
-
   return (
     <>
-      {/* SECTION 10: Ready When You Are -> Siap Kapan Pun LPK Anda Siap */}
+      {/* SECTION 10: Ready When You Are + Overhead Flat-Lay Composition (.footer_cta-image) */}
       <section
         id="mulai-sekarang"
         aria-labelledby="ready-heading"
-        className="mx-auto mt-[80px] w-full max-w-[1400px] px-4 sm:px-6"
+        className="mx-auto mt-28 w-full max-w-[1440px] overflow-hidden px-4 pt-4 pb-0 text-center sm:px-6"
       >
-        <div className="bevel-hero-sky overflow-hidden rounded-[32px] px-6 py-16 text-center sm:px-12 md:py-24">
-          <h2 id="ready-heading" className="bevel-display mx-auto max-w-2xl">
-            Siap kapan pun LPK Anda siap
+        <div className="mx-auto max-w-[660px]">
+          <h2 id="ready-heading" className="bevel-display">
+            Siap Kapan Pun Anda Siap
           </h2>
-          <p className="bevel-body mx-auto mt-4 max-w-2xl">
-            Mulai dari satu angkatan, satu kelas bahasa, dan satu berkas terverifikasi. SiapTerbang mendampingi LPK Anda melangkah lebih rapi, transparan, dan terpercaya.
+          <p className="bevel-body mt-4">
+            Mulai dari satu langkah. Satu angkatan setiap waktu. SiapTerbang mendampingi LPK Anda bergerak maju dengan kejelasan dan kepastian.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-7 flex justify-center">
             <button
               type="button"
               onClick={() => onOpenWorkspaceModal("DEMO_TRIAL")}
-              className="bevel-charcoal-pill inline-flex min-h-[48px] items-center gap-2.5 px-7 text-[16px]"
+              className="inline-flex min-h-[50px] items-center gap-3 rounded-[14px] bg-[#1f2025] px-6 py-2.5 text-[#ffffff] shadow-md transition-transform hover:bg-[#000000] active:scale-[0.98]"
             >
-              <span>Buka Ruang Kerja LPK Sekarang</span>
+              <svg
+                aria-hidden="true"
+                width="22"
+                height="22"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
+              </svg>
+              <div className="text-left">
+                <p className="text-[10px] leading-none font-medium text-[#ebf0f8]/80">
+                  B2B Multi-Tenant SaaS
+                </p>
+                <p className="text-[16px] leading-tight font-semibold text-[#ffffff]">
+                  Buka untuk LPK
+                </p>
+              </div>
             </button>
           </div>
+        </div>
 
-          {/* Flat-Lay Visual Composition of LPK Essentials (matching Bevel's footer_cta-image flat-lay) */}
-          <div className="mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-4 sm:grid-cols-4">
-            <div className="rounded-[20px] bg-[#ffffff]/90 p-4 text-left shadow-xs ring-1 ring-[#222326]/6">
-              <span className="font-mono text-[11px] font-semibold text-[#415eee]">
-                01 • KARTU QR SISWA
-              </span>
-              <p className="mt-1.5 text-[15px] font-semibold text-[#222326]">
-                Presensi & Poin Asrama
-              </p>
-              <p className="mt-1 text-[12px] text-[#747679]">
-                Terhubung langsung ke orang tua via WA
+        {/* .footer_cta-image: Overhead Studio Flat-Lay of Everyday LPK & CPMI Essentials */}
+        <div className="relative mx-auto mt-14 flex max-w-[1280px] flex-wrap items-center justify-center gap-6 px-4 py-8 sm:gap-10">
+          {/* Item 1: Passport & CoE Document Folder */}
+          <div className="-rotate-6 rounded-[22px] bg-[#1c2b4a] p-5 text-left text-[#ffffff] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.22)] w-[180px] sm:w-[205px]">
+            <p className="font-mono text-[9px] tracking-widest text-[#ffca00]">
+              REPUBLIC OF INDONESIA
+            </p>
+            <p className="mt-1 text-[15px] font-bold">PASPOR & CoE</p>
+            <div className="my-4 flex h-10 w-10 items-center justify-center rounded-full border border-[#ffca00]/50 text-[#ffca00]">
+              ✈
+            </div>
+            <span className="inline-block rounded-md bg-[#31ce01]/25 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#31ce01]">
+              H-30 Tracker Aman
+            </span>
+          </div>
+
+          {/* Item 2: Student QR ID Card Lanyard */}
+          <div className="rotate-3 rounded-[22px] bg-[#ebf0f8] p-5 text-left text-[#222326] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.16)] ring-1 ring-[#222326]/8 w-[175px] sm:w-[195px]">
+            <div className="mx-auto mb-3 h-2 w-10 rounded-full bg-[#222326]/20" />
+            <p className="text-[11px] font-bold text-[#415eee]">KARTU SISWA LPK</p>
+            <p className="text-[14px] font-bold text-[#222326]">NIS-2026-042</p>
+            <div className="mt-3 flex h-14 w-14 items-center justify-center rounded-lg bg-[#ffffff] p-1.5 shadow-2xs">
+              <svg viewBox="0 0 36 36" className="h-full w-full fill-[#1f2025]" aria-hidden="true">
+                <path d="M2 2h10v10H2V2zm2 2v6h6V4H4zm18-2h10v10H22V2zm2 2v6h6V4h-6zM2 22h10v10H2V22zm2 2v6h6v-6H4zm12-10h6v6h-6v-6zm8 8h8v8h-8v-8z" />
+              </svg>
+            </div>
+            <p className="mt-2 text-[10px] text-[#747679]">Scan Presensi & Asrama</p>
+          </div>
+
+          {/* Item 3: Center Smartphone showing SiapTerbang App */}
+          <div className="-rotate-2 rounded-[36px] bg-[#1f2025] p-2.5 text-[#222326] shadow-[0_26px_55px_-12px_rgba(0,0,0,0.32)] w-[210px] sm:w-[230px]">
+            <div className="rounded-[28px] bg-[#ffffff] p-3.5 text-left">
+              <div className="flex items-center justify-between text-[10px] font-semibold text-[#747679]">
+                <span>SiapTerbang</span>
+                <span className="text-[#31ce01]">● Online</span>
+              </div>
+              <div className="mt-2.5 flex justify-around rounded-xl bg-[#ebf0f8] p-2.5 text-center">
+                <div>
+                  <p className="text-[13px] font-bold text-[#222326]">88%</p>
+                  <p className="text-[8px] text-[#747679]">Bahasa</p>
+                </div>
+                <div>
+                  <p className="text-[13px] font-bold text-[#1e8300]">Lunas</p>
+                  <p className="text-[8px] text-[#747679]">Keuangan</p>
+                </div>
+                <div>
+                  <p className="text-[13px] font-bold text-[#415eee]">7/7</p>
+                  <p className="text-[8px] text-[#747679]">Berkas</p>
+                </div>
+              </div>
+              <p className="mt-2.5 text-center text-[10px] font-semibold text-[#222326]">
+                Status: Siap Terbang 🛫
               </p>
             </div>
+          </div>
 
-            <div className="rounded-[20px] bg-[#ffffff]/90 p-4 text-left shadow-xs ring-1 ring-[#222326]/6">
-              <span className="font-mono text-[11px] font-semibold text-[#1e8300]">
-                02 • RIREKISHO JIS
-              </span>
-              <p className="mt-1.5 text-[15px] font-semibold text-[#222326]">
-                CV Jepang & Surat Dinas
-              </p>
-              <p className="mt-1 text-[12px] text-[#747679]">
-                Cetak otomatis berkop resmi LPK
-              </p>
-            </div>
-
-            <div className="rounded-[20px] bg-[#ffffff]/90 p-4 text-left shadow-xs ring-1 ring-[#222326]/6">
-              <span className="font-mono text-[11px] font-semibold text-[#a93f22]">
-                03 • PASPOR & COE
-              </span>
-              <p className="mt-1.5 text-[15px] font-semibold text-[#222326]">
-                Pelacak H-30 & Visa
-              </p>
-              <p className="mt-1 text-[12px] text-[#747679]">
-                Terkunci aman dengan Financial Gate
-              </p>
-            </div>
-
-            <div className="rounded-[20px] bg-[#ffffff]/90 p-4 text-left shadow-xs ring-1 ring-[#222326]/6">
-              <span className="font-mono text-[11px] font-semibold text-[#583ec2]">
-                04 • PORTAL MANDIRI
-              </span>
-              <p className="mt-1.5 text-[15px] font-semibold text-[#222326]">
-                Mobile Web Kandidat
-              </p>
-              <p className="mt-1 text-[12px] text-[#747679]">
-                Unggah berkas & pantau tagihan mandiri
-              </p>
+          {/* Item 4: Rirekisho & Kanji Dictionary Pocket Card */}
+          <div className="rotate-6 rounded-[22px] bg-[#fff9ee] p-5 text-left text-[#222326] shadow-[0_20px_40px_-12px_rgba(0,0,0,0.16)] ring-1 ring-[#222326]/10 w-[180px] sm:w-[205px]">
+            <span className="rounded-md bg-[#ffca00]/30 px-2 py-0.5 font-mono text-[10px] font-bold text-[#8a6a00]">
+              履歴書 • JLPT N4
+            </span>
+            <p className="mt-2 text-[15px] font-bold text-[#222326]">
+              Auto-Rirekisho JIS
+            </p>
+            <p className="mt-1 text-[11px] leading-snug text-[#747679]">
+              CV Jepang, Surat Disnaker & Kuitansi QR siap cetak.
+            </p>
+            <div className="mt-3 flex items-center gap-1.5 text-[10px] font-semibold text-[#1e8300]">
+              <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
+              <span>Terverifikasi Sensei</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTION 11: Footer Link Group (DESIGN.md: Paper White #ffffff, 18px/25.2px weight-500 links, generous padding) */}
-      <footer className="mx-auto w-full max-w-[1400px] bg-[#ffffff] px-4 pt-[96px] pb-[120px] sm:px-6 lg:pt-[140px]">
-        <div className="grid grid-cols-1 gap-10 border-t border-[#ebf0f8] pt-14 md:grid-cols-2 lg:grid-cols-6">
-          <div className="lg:col-span-2">
-            <div className="flex items-center gap-2.5 text-[20px] font-semibold text-[#222326]">
-              <span
-                aria-hidden="true"
-                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1f2025] text-[#ebf0f8]"
+      {/* SECTION 11: footer.footer-2 (Exact Bevel 2-Side Footer Structure) */}
+      <footer className="mx-auto w-full max-w-[1360px] bg-[#ffffff] px-4 pt-24 pb-20 sm:px-6">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
+          {/* Left Column (.col-lg-4): Logo + Copyright + 5 Monochrome Social Icons */}
+          <div className="flex flex-col justify-between gap-10 lg:col-span-4">
+            <div>
+              <a
+                href="#beranda"
+                className="inline-flex items-center gap-2.5 text-[20px] font-semibold text-[#222326]"
               >
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                <span
+                  aria-hidden="true"
+                  className="flex h-7 w-7 items-center justify-center rounded-[8px] bg-[#1f2025] text-[#ffffff]"
                 >
-                  <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
-                </svg>
-              </span>
-              <span>SiapTerbang</span>
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.4"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M5 17h14M5 12h10M13 7l6 5-6 5" />
+                  </svg>
+                </span>
+                <span>SiapTerbang</span>
+              </a>
+              <p className="mt-2 text-[15px] text-[#747679]">
+                © SiapTerbang, Inc. 2026
+              </p>
             </div>
-            <p className="mt-3 max-w-sm text-[15px] leading-relaxed text-[#747679]">
-              Platform SaaS Multi-Tenant Manajemen Operasional LPK & Penyalur Tenaga Kerja Luar Negeri (siapterbang.id).
-            </p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              <span className="rounded-md bg-[#ebf0f8] px-2.5 py-1 font-mono text-[11px] font-medium text-[#222326]">
-                Multi-Tenant RLS
-              </span>
-              <span className="rounded-md bg-[#ebf0f8] px-2.5 py-1 font-mono text-[11px] font-medium text-[#222326]">
-                7 Role Terintegrasi
-              </span>
+
+            {/* 5 Monochrome Social Links matching Bevel Footer */}
+            <div className="flex items-center gap-7 text-[#222326]">
+              {[
+                { label: "Instagram", href: "#beranda", path: "M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" },
+                { label: "Twitter / X", href: "#beranda", path: "M4 4l16 16M20 4L4 20" },
+                { label: "Komunitas LPK", href: "#beranda", path: "M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm-3 9a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 9 11zm6 0a1.5 1.5 0 1 1 1.5-1.5A1.5 1.5 0 0 1 15 11zm-6.5 4a5.5 5.5 0 0 0 7 0" },
+                { label: "YouTube", href: "#beranda", path: "M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33zM9.75 15.02V8.48l5.75 3.27-5.75 3.27z" },
+                { label: "Facebook", href: "#beranda", path: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" },
+              ].map((soc) => (
+                <a
+                  key={soc.label}
+                  href={soc.href}
+                  aria-label={soc.label}
+                  className="text-[#222326] transition-opacity hover:opacity-65"
+                >
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d={soc.path} />
+                  </svg>
+                </a>
+              ))}
             </div>
           </div>
 
-          {footerColumns.map((col) => (
-            <div key={col.id}>
-              <h2 className="text-[14px] font-semibold uppercase tracking-wider text-[#747679]">
-                {col.heading}
-              </h2>
-              <ul className="mt-4 space-y-4">
-                {col.links.map((lnk) => (
-                  <li key={lnk.label}>
-                    <a
-                      href={lnk.href}
-                      className="text-[18px] font-medium leading-[25.2px] text-[#222326] transition-colors hover:text-[#415eee]"
-                    >
-                      {lnk.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Right Column (.col-lg-8): 4 Link Columns + Bottom-Right Compliance Badges */}
+          <div className="flex flex-col justify-between gap-12 lg:col-span-8">
+            <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
+              {footerColumns.map((col) => (
+                <div key={col.id}>
+                  <h2 className="text-[16px] font-semibold text-[#747679]">
+                    {col.heading}
+                  </h2>
+                  <ul className="mt-4 space-y-2.5">
+                    {col.links.map((lnk) => (
+                      <li key={lnk.label}>
+                        <a
+                          href={lnk.href}
+                          className="text-[16px] font-medium leading-[22.4px] text-[#222326] transition-opacity hover:opacity-65"
+                        >
+                          {lnk.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
 
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-[#ebf0f8] pt-8 text-[14px] text-[#747679] sm:flex-row sm:items-center">
-          <p>© 2026 SiapTerbang (siapterbang.id). Seluruh hak cipta dilindungi.</p>
-          <p>Sistem Manajemen LPK Magang Jepang, Tokutei Ginou (SSW), G-to-G Korea & Perhotelan.</p>
+            {/* Bottom-Right Compliance Badges matching Bevel's HIPAA & SOC 2 Type 2 badges */}
+            <div className="flex flex-wrap items-center justify-start gap-4 lg:justify-end">
+              <div className="flex items-center gap-2.5 rounded-full border border-[#222326]/12 bg-[#ebf0f8]/50 px-4 py-2 text-[12px] font-semibold text-[#222326]">
+                <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
+                <span>MULTI-TENANT RLS COMPLIANT</span>
+              </div>
+              <div className="flex items-center gap-2.5 rounded-full border border-[#222326]/12 bg-[#ebf0f8]/50 px-4 py-2 text-[12px] font-semibold text-[#222326]">
+                <span className="h-2 w-2 rounded-full bg-[#415eee]" />
+                <span>STANDAR DISNAKER & BP2MI</span>
+              </div>
+            </div>
+          </div>
         </div>
       </footer>
-
-      {/* DESIGN.md Component: Elevated QR Download / Portal Card (Charcoal #1f2025, Cloud Card #ebf0f8 text, 16px radius) */}
-      <aside
-        aria-label="Akses Cepat Portal Mobile Web Siswa"
-        className="bevel-qr-shadow fixed right-5 bottom-5 z-30 hidden rounded-[16px] bg-[#1f2025] p-3.5 text-[#ebf0f8] ring-1 ring-[#ffffff]/12 lg:block"
-      >
-        {qrCollapsed ? (
-          <button
-            type="button"
-            onClick={() => setQrCollapsed(false)}
-            className="flex items-center gap-2 px-1 text-[12px] font-medium text-[#ebf0f8]"
-          >
-            <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
-            <span>QR Portal Siswa</span>
-          </button>
-        ) : (
-          <div className="flex items-center gap-3">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-[10px] bg-[#ffffff] p-1.5">
-              {/* High-contrast SVG QR Code */}
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 36 36"
-                className="h-full w-full fill-[#1f2025]"
-              >
-                <path d="M2 2h10v10H2V2zm2 2v6h6V4H4zm2 2h2v2H6V6zm18-4h10v10H24V2zm2 2v6h6V4h-6zm2 2h2v2h-2V6zM2 24h10v10H2V24zm2 2v6h6v-6H4zm2 2h2v2H6v-2zm10-24h4v4h-4V4zm4 4h4v4h-4V8zm-4 4h4v4h-4v-4zm0 8h4v4h-4v-4zm8-4h4v4h-4v-4zm4 4h6v4h-6v-4zm-8 4h4v6h-4v-6zm6 4h6v6h-6v-6z" />
-              </svg>
-            </div>
-            <div className="max-w-[145px]">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-[#ffca00]">
-                  Portal Mobile Siswa
-                </span>
-                <button
-                  type="button"
-                  aria-label="Sembunyikan kartu QR"
-                  onClick={() => setQrCollapsed(true)}
-                  className="text-[11px] text-[#ebf0f8]/60 hover:text-[#ffffff]"
-                >
-                  ✕
-                </button>
-              </div>
-              <p className="mt-0.5 text-[12px] font-medium leading-tight text-[#ebf0f8]">
-                Scan untuk simulasi Tracker & Kuitansi QR
-              </p>
-              <button
-                type="button"
-                onClick={() => onOpenWorkspaceModal("7. Portal Siswa")}
-                className="mt-1.5 text-[11px] font-semibold text-[#31ce01] underline underline-offset-2"
-              >
-                Buka Pratinjau →
-              </button>
-            </div>
-          </div>
-        )}
-      </aside>
     </>
   );
 }
