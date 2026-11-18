@@ -7,7 +7,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- 1. Dormitory Rooms (Manajemen Kamar Asrama)
 CREATE TABLE IF NOT EXISTS public.dormitory_rooms (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     room_code VARCHAR(32) NOT NULL,
     building_name VARCHAR(64) NOT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.dormitory_rooms (
 
 -- 2. Students (Data Induk Siswa, PPDB & Cross-Role Locks)
 CREATE TABLE IF NOT EXISTS public.students (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     nis VARCHAR(32) UNIQUE,
     nik VARCHAR(16) NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS public.students (
 
 -- 3. Student Documents (7 Berkas Legalitas & H-30 Expiry Tracker)
 CREATE TABLE IF NOT EXISTS public.student_documents (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
     doc_type VARCHAR(24) NOT NULL
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS public.student_documents (
 
 -- 4. Dormitory Violation Logs (Buku Poin Disiplin Asrama)
 CREATE TABLE IF NOT EXISTS public.dormitory_violations (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
     violation_title VARCHAR(160) NOT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS public.dormitory_violations (
 
 -- 5. Official Letters (Generator Surat Resmi Berkop LPK)
 CREATE TABLE IF NOT EXISTS public.official_letters (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
     letter_number VARCHAR(64) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE IF NOT EXISTS public.official_letters (
 
 -- 6. Offboarding & Refund Calculator Requests
 CREATE TABLE IF NOT EXISTS public.offboarding_requests (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     tenant_id TEXT NOT NULL,
     student_id UUID NOT NULL REFERENCES public.students(id) ON DELETE CASCADE,
     reason TEXT NOT NULL,
