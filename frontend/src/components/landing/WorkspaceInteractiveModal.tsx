@@ -103,7 +103,7 @@ export function WorkspaceInteractiveModal({
               https://{subdomain}.siapterbang.id
             </p>
             <p className="mt-2 text-[13px] text-[#747679]">
-              Paket dipilih: <strong>{selectedPlan}</strong> • 7 Role RBAC & Master Template Rirekisho otomatis disertakan.
+              Paket dipilih: <strong>{selectedPlan}</strong> • 6 Role Internal LPK & Master Template Rirekisho otomatis disertakan.
             </p>
             <div className="mt-5 flex justify-end gap-2">
               <button

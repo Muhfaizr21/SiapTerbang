@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "SiapTerbang: Platform SaaS Manajemen Operasional LPK & Penempatan Luar Negeri",
   description:
-    "Platform SaaS Multi-Tenant dengan 7 Role terintegrasi untuk manajemen LPK Magang Jepang, Tokutei Ginou (SSW), G-to-G Korea, asrama, auto-Rirekisho, dan dana talangan.",
+    "Sistem manajemen operasional LPK #1 di Indonesia dengan 6 Role terintegrasi untuk Magang Jepang, Tokutei Ginou (SSW), dan G-to-G Korea. Otomasi Rirekisho JIS, penguncian lintas divisi, dan pengawalan dana talangan.",
 };
 
 export default function RootLayout({

@@ -284,18 +284,32 @@ function DedicatedModuleDesktopCanvas({
     case "impersonate":
       return (
         <div className="space-y-3">
-          <div className="rounded-xl bg-[#1f2025] p-4 text-[#ffffff]">
-            <div className="flex items-center justify-between">
-              <div>
-                <span className="rounded bg-[#b9a6ff]/25 px-2 py-0.5 font-mono text-[10px] font-semibold text-[#b9a6ff]">
-                  SUPER ADMIN SUPPORT MODE
-                </span>
-                <p className="mt-1.5 text-[14px] font-bold">Tenant: LPK Nusantara Jaya</p>
-                <p className="text-[11px] text-[#ebf0f8]/70">Paket Pro • 148 Siswa Aktif • 14.2 / 50 GB</p>
-              </div>
-              <span className="rounded-full bg-[#ebf0f8] px-3.5 py-1.5 text-[11px] font-bold text-[#1f2025]">
-                Impersonate Owner →
+          <div className="rounded-xl bg-[#f8f9fc] p-3.5 ring-1 ring-[#222326]/6">
+            <div className="flex items-center justify-between border-b border-[#ebf0f8] pb-2 text-[11.5px] font-bold text-[#222326]">
+              <span>Pelacakan Alumni Luar Negeri & Kontrak Kerja</span>
+              <span className="rounded bg-[#b9a6ff]/25 px-2 py-0.5 font-mono text-[10px] text-[#583ec2]">
+                PELUANG VISA SSW
               </span>
+            </div>
+            <div className="mt-2.5 space-y-2 text-[11.5px]">
+              <div className="flex items-center justify-between rounded-lg bg-[#ffffff] px-3 py-2 shadow-2xs">
+                <div>
+                  <p className="font-bold text-[#222326]">Hendra Wijaya • Aichi, Jepang</p>
+                  <p className="text-[10.5px] text-[#747679]">Kontrak 3 Tahun Berakhir: 82 Hari Lagi</p>
+                </div>
+                <span className="rounded-md bg-[#31ce01]/15 px-2.5 py-1 font-mono text-[10px] font-bold text-[#1e8300]">
+                  Tawarkan SSW →
+                </span>
+              </div>
+              <div className="flex items-center justify-between rounded-lg bg-[#ffffff] px-3 py-2 shadow-2xs">
+                <div>
+                  <p className="font-bold text-[#222326]">Wahyu Saputra • Osaka, Jepang</p>
+                  <p className="text-[10.5px] text-[#747679]">Cicilan Dana Talangan: Bulan 10 / 12</p>
+                </div>
+                <span className="rounded-md bg-[#415eee]/15 px-2.5 py-1 font-mono text-[10px] font-bold text-[#2945d6]">
+                  Lancar ✓
+                </span>
+              </div>
             </div>
           </div>
         </div>

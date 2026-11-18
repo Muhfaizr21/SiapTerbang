@@ -27,19 +27,11 @@ function RoleEmblemIcon({ roleNumber }: { readonly roleNumber: number }) {
     case 1:
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
-          <path d="M2 12l10 5 10-5" />
-        </svg>
-      );
-    case 2:
-      return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
           <path d="m9 12 2 2 4-4" />
         </svg>
       );
-    case 3:
+    case 2:
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -48,20 +40,20 @@ function RoleEmblemIcon({ roleNumber }: { readonly roleNumber: number }) {
           <line x1="16" y1="17" x2="8" y2="17" />
         </svg>
       );
-    case 4:
+    case 3:
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
         </svg>
       );
-    case 5:
+    case 4:
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z" />
         </svg>
       );
-    case 6:
+    case 5:
       return (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <rect x="2" y="5" width="20" height="14" rx="2" />
@@ -85,7 +77,7 @@ export function BevelIntelligenceDarkSection({
   onOpenWorkspaceModal,
 }: BevelIntelligenceDarkSectionProps) {
   const [selectedRoleId, setSelectedRoleId] = useState<string>(
-    roles[1]?.id ?? "role-tenant-owner"
+    roles[0]?.id ?? "role-tenant-owner"
   );
   const activeRole = roles.find((r) => r.id === selectedRoleId) ?? roles[0];
   const activeRoleTokens = getAccentTokens(activeRole.accent);
@@ -97,22 +89,22 @@ export function BevelIntelligenceDarkSection({
       className="bevel-section-pad w-full bg-[#141518] text-[#ffffff]"
     >
       <div className="bevel-container">
-        {/* Centered 2-Tone 64px Heading matching "Go deeper with / Bevel Intelligence" */}
-        <div className="mx-auto max-w-[760px] text-center">
+        {/* Centered 2-Tone 64px Marketing Heading */}
+        <div className="mx-auto max-w-[820px] text-center">
           <h2 id="intelligence-heading" className="bevel-display">
-            <span className="block text-[#747679]">Lebih terkendali dengan</span>
-            <span className="mt-1 block text-[#ffffff]">SiapTerbang Intelligence</span>
+            <span className="block text-[#747679]">Sinergi penuh enam divisi dengan</span>
+            <span className="mt-1 block text-[#ffffff]">Penguncian Lintas Role Otomatis</span>
           </h2>
           <p className="bevel-body mt-5 text-[#747679]">
-            Otomasi lintas divisi, matriks Multi-Role RBAC, dan penjaga gerbang 24/7 untuk ketujuh role di dashboard web LPK Anda.
+            Setiap divisi bekerja di ruang kerjanya masing-masing tanpa saling tumpang tindih. Satu staf di daerah tetap fleksibel merangkap jabatan, sementara persetujuan finansial mutlak di tangan Direktur.
           </p>
         </div>
 
-        {/* Clean, Un-clipped 7-Role Interactive Selector Dock (Responsive on Mobile & Desktop) */}
+        {/* Clean 6-Role Internal LPK Selector Dock (Responsive 2x3 on phone, 3x2 on tablet, 6-col on desktop) */}
         <div
           role="tablist"
-          aria-label="Pilih Role Pengguna SiapTerbang"
-          className="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-7"
+          aria-label="Pilih Role Internal LPK SiapTerbang"
+          className="mx-auto mt-12 grid max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6"
         >
           {roles.map((role) => {
             const isSelected = role.id === activeRole.id;
@@ -151,7 +143,7 @@ export function BevelIntelligenceDarkSection({
                   >
                     Role 0{role.roleNumber}
                   </span>
-                  <span className="mt-0.5 block text-[14px] font-semibold leading-snug">
+                  <span className="mt-0.5 block text-[14.5px] font-semibold leading-snug">
                     {role.shortLabel.replace(/^[0-9]+\.\s*/, "")}
                   </span>
                 </div>
@@ -160,7 +152,7 @@ export function BevelIntelligenceDarkSection({
           })}
         </div>
 
-        {/* High-Craft Web Desktop Role Workspace Preview (Replacing the plain grey box) */}
+        {/* High-Craft Web Desktop Role Workspace Preview */}
         <div
           role="tabpanel"
           className="mx-auto mt-8 max-w-6xl overflow-hidden rounded-[28px] bg-[#1f2025] p-2.5 shadow-[0_28px_70px_rgba(0,0,0,0.45)] ring-1 ring-[#ffffff]/15"
@@ -172,7 +164,7 @@ export function BevelIntelligenceDarkSection({
               <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
               <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
               <span className="ml-2 hidden font-mono text-[11px] text-[#747679] sm:inline">
-                Workspace Role 0{activeRole.roleNumber}
+                Ruang Kerja Divisi LPK
               </span>
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-[#1f2025] px-3.5 py-1 font-mono text-[11.5px] text-[#ebf0f8] ring-1 ring-[#ffffff]/10">
@@ -181,7 +173,7 @@ export function BevelIntelligenceDarkSection({
                 style={{ backgroundColor: activeRoleTokens.hex }}
               />
               <span className="truncate">
-                https://lpknusantara.siapterbang.id/role-0{activeRole.roleNumber}
+                https://lpknusantara.siapterbang.id/divisi-0{activeRole.roleNumber}
               </span>
             </div>
             <span className="rounded-full bg-[#31ce01]/20 px-3 py-0.5 font-mono text-[10.5px] font-bold text-[#31ce01]">
@@ -190,20 +182,20 @@ export function BevelIntelligenceDarkSection({
           </div>
 
           {/* Inner Role Command Center Grid */}
-          <div className="grid grid-cols-1 gap-6 rounded-b-[20px] bg-[#191a1f] p-6 sm:p-8 lg:grid-cols-12">
+          <div className="grid grid-cols-1 gap-6 rounded-b-[20px] bg-[#191a1f] p-5 sm:p-8 lg:grid-cols-12">
             {/* Left Column: Role Identity, User Profile & System Lock Rule */}
             <div className="flex flex-col justify-between rounded-[22px] bg-[#141518] p-6 ring-1 ring-[#ffffff]/8 lg:col-span-5">
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="rounded-full bg-[#ffffff]/10 px-3 py-1 font-mono text-[11px] font-semibold text-[#b9a6ff]">
-                    {activeRole.roleNumber === 1 ? "Level 1 • Global SaaS" : "Level 2 • Tenant LPK"}
+                    Ekosistem Internal LPK
                   </span>
                   <span className="text-[12px] font-medium text-[#747679]">
                     {activeRole.liveMetricLabel}
                   </span>
                 </div>
 
-                <h3 className="mt-4 text-[26px] font-bold leading-tight tracking-tight text-[#ffffff] sm:text-[30px]">
+                <h3 className="mt-4 text-[25px] font-bold leading-tight tracking-tight text-[#ffffff] sm:text-[28px]">
                   {activeRole.fullTitle}
                 </h3>
                 <p className="mt-2 text-[14.5px] text-[#ebf0f8]/75">
@@ -211,7 +203,7 @@ export function BevelIntelligenceDarkSection({
                   <strong className="text-[#ffffff]">{activeRole.fieldUser}</strong>
                 </p>
                 <p className="mt-1 text-[13px] text-[#747679]">
-                  Cakupan Akses: {activeRole.workspaceScope}
+                  Fokus Divisi: {activeRole.workspaceScope}
                 </p>
 
                 {/* System Lock Box */}
@@ -221,7 +213,7 @@ export function BevelIntelligenceDarkSection({
                       <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
                       <path d="M7 11V7a5 5 0 0 1 10 0v4" />
                     </svg>
-                    <span>Aturan Penguncian Sistem (Cross-Role Lock)</span>
+                    <span>Keunggulan & Proteksi Divisi</span>
                   </div>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-[#ebf0f8]/90">
                     {activeRole.lockRule}
@@ -234,21 +226,21 @@ export function BevelIntelligenceDarkSection({
                 onClick={() => onOpenWorkspaceModal(activeRole.shortLabel)}
                 className="mt-6 flex min-h-[46px] w-full items-center justify-center gap-2 rounded-[128px] bg-[#ebf0f8] px-5 py-2.5 text-[14.5px] font-bold text-[#141518] transition-colors hover:bg-[#ffffff]"
               >
-                <span>Buka Simulasi Dashboard {activeRole.shortLabel}</span>
+                <span>Coba Tampilan {activeRole.shortLabel}</span>
                 <span>→</span>
               </button>
             </div>
 
             {/* Right Column: Structured Module & Sub-Feature Table */}
-            <div className="flex flex-col justify-between rounded-[22px] bg-[#ffffff] p-6 text-[#222326] lg:col-span-7">
+            <div className="flex flex-col justify-between rounded-[22px] bg-[#ffffff] p-5 text-[#222326] sm:p-6 lg:col-span-7">
               <div>
                 <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#ebf0f8] pb-3.5">
                   <div>
                     <p className="font-mono text-[10.5px] font-bold uppercase tracking-wider text-[#415eee]">
-                      MODUL SIDEBAR & KEWENANGAN UTAMA
+                      MODUL SIDEBAR & OTOMASI HARIAN
                     </p>
-                    <h4 className="text-[19px] font-bold text-[#222326]">
-                      Daftar Fungsionalitas {activeRole.shortLabel}
+                    <h4 className="text-[18px] font-bold text-[#222326] sm:text-[19px]">
+                      Kapabilitas {activeRole.shortLabel}
                     </h4>
                   </div>
                   <span className="rounded-lg bg-[#ebf0f8] px-3 py-1 font-mono text-[11px] font-bold text-[#222326]">
@@ -260,18 +252,18 @@ export function BevelIntelligenceDarkSection({
                   {activeRole.keyModules.map((mod, idx) => (
                     <div
                       key={mod}
-                      className="flex items-center justify-between gap-3 rounded-[14px] bg-[#f8f9fc] px-4 py-3 ring-1 ring-[#222326]/6"
+                      className="flex items-center justify-between gap-3 rounded-[14px] bg-[#f8f9fc] px-3.5 py-3 ring-1 ring-[#222326]/6 sm:px-4"
                     >
                       <div className="flex items-center gap-3">
                         <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-[#1f2025] font-mono text-[11px] font-bold text-[#ffffff]">
                           0{idx + 1}
                         </span>
-                        <span className="text-[14px] font-semibold text-[#222326]">
+                        <span className="text-[13.5px] font-semibold text-[#222326] sm:text-[14px]">
                           {mod}
                         </span>
                       </div>
                       <span className="hidden shrink-0 rounded-md bg-[#31ce01]/15 px-2.5 py-0.5 font-mono text-[10px] font-bold text-[#1e8300] sm:inline-block">
-                        AKTIF
+                        TERSEDIA
                       </span>
                     </div>
                   ))}
@@ -279,14 +271,14 @@ export function BevelIntelligenceDarkSection({
               </div>
 
               <div className="mt-5 flex flex-wrap items-center justify-between gap-2 border-t border-[#ebf0f8] pt-3.5 text-[12px] text-[#747679]">
-                <span>Mendukung penggabungan Multi-Role per Akun Staf</span>
-                <span className="font-semibold text-[#222326]">Permission-Based RBAC ✓</span>
+                <span>Satu akun staf dapat dicentang merangkap lebih dari satu role</span>
+                <span className="font-semibold text-[#222326]">Multi-Role RBAC ✓</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* 4 Full-Width Stacked Horizontal Cards at 100% Bevel Scale (Web Desktop Window on right) */}
+        {/* 4 Full-Width Stacked Horizontal Cards at 100% Bevel Scale */}
         <div className="mt-16 space-y-8">
           {deepDives.map((block, index) => {
             const cardGradient = CARD_GRADIENT_CLASSES[index % CARD_GRADIENT_CLASSES.length];
@@ -295,7 +287,6 @@ export function BevelIntelligenceDarkSection({
                 key={block.id}
                 className={`${cardGradient} grid grid-cols-1 items-center overflow-hidden text-[#222326] lg:min-h-[600px] lg:grid-cols-12`}
               >
-                {/* Left Column (.col-lg-6): 64px 2-Tone Heading + 24px Supporting Copy */}
                 <div className="p-8 sm:p-12 lg:col-span-6 lg:pl-16">
                   <h3 className="bevel-h2-h3">
                     <span className="block text-[#222326]">{block.titleLine1}</span>
@@ -306,10 +297,8 @@ export function BevelIntelligenceDarkSection({
                   </p>
                 </div>
 
-                {/* Right Column (.col-lg-6): Clean Web Desktop Window + Action Drawer */}
                 <div className="flex flex-col items-center justify-end px-5 pt-2 pb-8 sm:px-10 lg:col-span-6 lg:h-full lg:pt-10 lg:pb-0">
                   <div className="w-full max-w-[540px] overflow-hidden rounded-[22px] bg-[#1f2025] p-2 shadow-[0_24px_60px_rgba(0,0,0,0.25)] ring-1 ring-[#ffffff]/30 lg:rounded-b-none lg:pb-0">
-                    {/* Browser Chrome Header */}
                     <div className="flex items-center justify-between rounded-t-[14px] bg-[#141518] px-4 py-2.5 text-[#ebf0f8]">
                       <div className="flex items-center gap-1.5">
                         <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56]" />
@@ -322,7 +311,6 @@ export function BevelIntelligenceDarkSection({
                       <span className="font-mono text-[10px] text-[#31ce01]">ONLINE</span>
                     </div>
 
-                    {/* Desktop Screen Workspace */}
                     <div className="bg-[#f8f9fc] p-5 text-[#222326] sm:p-6">
                       <div className="flex items-center justify-between border-b border-[#ebf0f8] pb-3">
                         <div>
@@ -355,7 +343,6 @@ export function BevelIntelligenceDarkSection({
                         ))}
                       </div>
 
-                      {/* Integrated Action Sheet inside Desktop Window */}
                       <div className="mt-4 rounded-[18px] bg-[#ffffff] p-4 shadow-md ring-1 ring-[#222326]/8">
                         <p className="text-[13px] font-bold text-[#222326]">
                           “{block.floatingPromptBubble}”
@@ -369,7 +356,7 @@ export function BevelIntelligenceDarkSection({
                           className="mt-3 flex min-h-[42px] w-full items-center justify-center gap-2 rounded-[128px] bg-[#1f2025] py-2 text-[13.5px] font-semibold text-[#ffffff] hover:bg-[#000000]"
                         >
                           <span>▶</span>
-                          <span>Simulasikan Modul Ini</span>
+                          <span>Uji Coba Alur Ini</span>
                         </button>
                       </div>
                     </div>

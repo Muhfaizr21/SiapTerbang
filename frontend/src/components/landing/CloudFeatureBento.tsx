@@ -18,12 +18,12 @@ export function CloudFeatureBento({ features }: CloudFeatureBentoProps) {
       className="bevel-container overflow-hidden pb-24"
     >
       {/* Centered Heading matching Bevel 100% Scale (64px H2 + 24px Subtitle) */}
-      <div className="mx-auto max-w-[720px] text-center">
+      <div className="mx-auto max-w-[760px] text-center">
         <h2 id="start-day-heading" className="bevel-display">
-          Awali operasional dengan penuh kepastian
+          Tutup celah gagal berangkat sejak hari pertama
         </h2>
         <p className="bevel-body mt-5">
-          Ubah aktivitas asrama, pelatihan bahasa, dan pemberkasan menjadi indikator kesiapan kerja yang terukur di web desktop.
+          Ubah catatan asrama, progres bahasa N4, dan kelengkapan berkas negara menjadi sistem deteksi dini yang menjaga reputasi LPK Anda di mata mitra Jepang dan Korea.
         </p>
       </div>
 

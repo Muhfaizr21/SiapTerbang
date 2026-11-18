@@ -73,15 +73,15 @@ export function PrivacyAndPricingSection({
             className="pointer-events-none absolute h-[115%] w-auto object-contain opacity-25 mix-blend-screen"
           />
 
-          <div className="relative z-10 mx-auto max-w-[520px]">
+          <div className="relative z-10 mx-auto max-w-[560px]">
             <h2
               id="privacy-heading"
               className="text-[42px] font-semibold leading-[1] tracking-[-0.03em] text-[#ffffff] sm:text-[56px] md:text-[64px]"
             >
-              Dirancang untuk privasi
+              Rahasia bisnis LPK Anda terkunci rapat
             </h2>
             <p className="mt-5 text-[19px] leading-[1.35] text-[#ebf0f8]/75 sm:text-[22px]">
-              Data LPK Anda adalah milik Anda sepenuhnya. Kami tidak pernah menjualnya dan melindunginya dengan isolasi ruang kerja multi-tenant berstandar industri.
+              Database kandidat, kontrak Kumiai/SO, dan arus kas dana talangan adalah aset berharga LPK Anda. Seluruhnya dilindungi dengan isolasi ruang kerja multi-tenant (Row-Level Security) tanpa percampuran data antar-lembaga.
             </p>
           </div>
         </div>
@@ -152,7 +152,7 @@ export function PrivacyAndPricingSection({
                   SiapTerbang
                 </p>
                 <p className="mt-1 text-[12px] font-medium text-[#747679]">
-                  7 Role • Multi-Tenant SaaS
+                  6 Role LPK • Multi-Tenant SaaS
                 </p>
               </div>
             </div>
@@ -196,12 +196,12 @@ export function PrivacyAndPricingSection({
         </div>
 
         {/* Centered Heading matching "Crafted with Care Loved Everywhere" */}
-        <div className="mx-auto mt-20 max-w-[680px] px-4 text-center">
+        <div className="mx-auto mt-20 max-w-[720px] px-4 text-center">
           <h2 id="crafted-heading" className="bevel-display">
-            Dirancang dengan Presisi Diandalkan LPK di Daerah
+            Dibangun untuk Direktur LPK yang Mengutamakan Reputasi
           </h2>
           <p className="bevel-body mt-4">
-            Lihat bagaimana SiapTerbang menutup kebocoran administrasi, mempercepat pemberkasan, dan menjaga reputasi LPK di mata mitra luar negeri.
+            Buktikan bagaimana SiapTerbang memangkas 80% beban kerja admin manual, mengamankan piutang dana talangan, dan mempercepat kuota terbang setiap angkatan.
           </p>
         </div>
 
@@ -244,10 +244,10 @@ export function PrivacyAndPricingSection({
         >
           <div className="mx-auto max-w-2xl text-center">
             <h3 className="text-[36px] font-semibold leading-tight tracking-[-0.03em] text-[#222326] sm:text-[48px]">
-              Skema Paket Langganan SaaS
+              Investasi Terukur untuk Pertumbuhan LPK Anda
             </h3>
             <p className="mt-3 text-[18px] text-[#747679]">
-              Pilih kapasitas kuota siswa, storage dokumen, dan modul otomasi yang sesuai dengan tahap pertumbuhan LPK Anda.
+              Biaya berlangganan bulanan yang jauh lebih hemat dibanding kerugian satu kandidat gagal berangkat atau satu piutang dana talangan yang macet.
             </p>
           </div>
 

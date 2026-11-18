@@ -19,18 +19,18 @@ export function ReadyCalloutAndFooter({
         aria-labelledby="ready-heading"
         className="bevel-container mt-28 overflow-hidden pt-4 pb-0 text-center"
       >
-        <div className="mx-auto max-w-[700px]">
+        <div className="mx-auto max-w-[740px]">
           <h2 id="ready-heading" className="bevel-display">
-            Siap Kapan Pun Anda Siap
+            Siap Menerbangkan Lebih Banyak Angkatan?
           </h2>
           <p className="bevel-body mt-5">
-            Mulai dari satu langkah. Satu angkatan setiap waktu. SiapTerbang mendampingi LPK Anda bergerak maju dengan kejelasan dan kepastian.
+            Tinggalkan spreadsheet yang terpecah-pecah. Aktifkan ruang kerja web desktop khusus LPK Anda hari ini dan rasakan kendali penuh dari PPDB hingga penempatan luar negeri.
           </p>
 
           <div className="mt-8 flex justify-center">
             <button
               type="button"
-              onClick={() => onOpenWorkspaceModal("DEMO_TRIAL")}
+              onClick={() => onOpenWorkspaceModal("Jadwalkan Demo & Trial 14 Hari")}
               className="inline-flex min-h-[54px] items-center gap-3 rounded-[16px] bg-[#1f2025] px-7 py-3 text-[#ffffff] shadow-lg transition-transform hover:bg-[#000000] active:scale-[0.98]"
             >
               <svg
@@ -50,10 +50,10 @@ export function ReadyCalloutAndFooter({
               </svg>
               <div className="text-left">
                 <p className="text-[10px] leading-none font-medium text-[#ebf0f8]/80">
-                  Web Desktop Multi-Tenant
+                  Aktif dalam 5 Menit • Tanpa Kartu Kredit
                 </p>
                 <p className="text-[17px] leading-tight font-semibold text-[#ffffff]">
-                  Buka Dashboard LPK
+                  Coba Gratis 14 Hari Sekarang
                 </p>
               </div>
             </button>
@@ -103,7 +103,7 @@ export function ReadyCalloutAndFooter({
             <div className="rounded-b-[14px] bg-[#ffffff] p-4 text-left">
               <div className="flex items-center justify-between text-[11px] font-semibold text-[#747679]">
                 <span>Dashboard Eksekutif Web</span>
-                <span className="text-[#1e8300]">7 Role Aktif</span>
+                <span className="text-[#1e8300]">6 Role LPK Aktif</span>
               </div>
               <div className="mt-3 grid grid-cols-3 gap-2 rounded-xl bg-[#ebf0f8] p-3 text-center">
                 <div>

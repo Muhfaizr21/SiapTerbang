@@ -48,18 +48,18 @@ export function CloudlightHero({
           className="pointer-events-none absolute inset-x-0 top-0 z-10 mx-auto w-full rounded-t-[24px] object-cover opacity-85 mix-blend-screen"
         />
 
-        {/* Hero Copy Block */}
-        <div className="relative z-20 mx-auto flex max-w-[920px] flex-col items-center px-4 text-center">
-          <h1 id="hero-heading" className="bevel-hero-display max-w-[780px]">
-            Pendamping Operasional LPK Terkoneksi
+        {/* Hero Copy Block (High-Converting B2B LPK Copywriting) */}
+        <div className="relative z-20 mx-auto flex max-w-[940px] flex-col items-center px-4 text-center">
+          <h1 id="hero-heading" className="bevel-hero-display max-w-[820px]">
+            Kendalikan LPK Anda dari Pendaftaran hingga Terbang
           </h1>
 
-          <p className="bevel-body mt-5 max-w-[640px]">
-            Kelola seluruh operasional LPK Anda di satu dashboard web desktop, mulai dari pemberkasan, disiplin asrama, dan Rirekisho otomatis hingga dana talangan.
+          <p className="bevel-body mt-5 max-w-[680px]">
+            Tinggalkan map kertas yang tercecer dan rekap Excel yang rawan bocor. Satukan seleksi fisik, kedisiplinan asrama, cetak CV Rirekisho otomatis, hingga pengawalan dana talangan dalam satu sistem kerja terpadu.
           </p>
 
           <div className="mt-7 flex flex-col items-center gap-3.5">
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2">
               <div className="flex items-center gap-0.5 text-[#ffca00]" aria-label="Rating 4.9 dari 5">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <svg key={i} width="17" height="17" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -68,14 +68,14 @@ export function CloudlightHero({
                 ))}
               </div>
               <span className="text-[15px] font-medium text-[#747679]">
-                4.9 / 7 Role Terintegrasi LPK
+                4.9 • Standar LPK Magang Jepang, Tokutei Ginou (SSW) & Korea
               </span>
             </div>
 
             <button
               type="button"
-              onClick={() => onOpenWorkspaceModal("DEMO_TRIAL")}
-              className="inline-flex min-h-[52px] items-center gap-3 rounded-[14px] bg-[#1f2025] px-6 py-2.5 text-[#ffffff] shadow-md transition-transform hover:bg-[#000000] active:scale-[0.98]"
+              onClick={() => onOpenWorkspaceModal("Demo Gratis 14 Hari")}
+              className="inline-flex min-h-[54px] items-center gap-3 rounded-[14px] bg-[#1f2025] px-7 py-2.5 text-[#ffffff] shadow-md transition-transform hover:bg-[#000000] active:scale-[0.98]"
             >
               <svg
                 aria-hidden="true"
@@ -94,23 +94,23 @@ export function CloudlightHero({
               </svg>
               <div className="text-left">
                 <p className="text-[10px] leading-none font-medium text-[#ebf0f8]/80">
-                  Web Desktop Multi-Tenant
+                  Aktifkan Subdomain Resmi LPK
                 </p>
                 <p className="text-[16px] leading-tight font-semibold text-[#ffffff]">
-                  Buka Dashboard LPK
+                  Coba Gratis 14 Hari
                 </p>
               </div>
             </button>
 
             <p className="text-[14px] text-[#747679]">
-              Mulai ruang kerja namalpk.siapterbang.id secara gratis hari ini.
+              Dapatkan ruang kerja eksklusif namalpk.siapterbang.id tanpa instalasi server.
             </p>
           </div>
         </div>
 
         {/* .hero_bottom: Web Desktop SaaS Dashboard Showcase + Balanced Floating Widget Columns */}
         <div className="bevel-hero-bottom-mask relative z-20 mx-auto mt-10 flex w-full max-w-[1400px] flex-col items-center justify-center gap-5 px-3 pt-2 pb-10 sm:px-4 xl:flex-row xl:items-start">
-          {/* Left Floating Widgets Column (Desktop XL) */}
+          {/* Left Floating Widgets Column */}
           <div
             aria-hidden="true"
             className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
@@ -133,14 +133,14 @@ export function CloudlightHero({
                 </span>
               </div>
               <p className="mt-1.5 text-[12px] leading-snug text-[#747679]">
-                Notifikasi perpanjangan MCU terkirim otomatis ke siswa & Admin TU.
+                Peringatan dini sebelum masa berlaku paspor atau MCU kandidat habis.
               </p>
             </div>
 
             <div className="rounded-[20px] bg-[#ffffff]/92 p-4 shadow-[0_8px_24px_rgba(31,32,37,0.07)] backdrop-blur-md ring-1 ring-[#222326]/5">
               <div className="flex items-center justify-between text-[11.5px] font-semibold text-[#222326]">
-                <span>Tren Kelulusan SO</span>
-                <span className="font-mono text-[#415eee]">+18.4%</span>
+                <span>Rasio Lolos Mensetsu</span>
+                <span className="font-mono text-[#415eee]">+24.8%</span>
               </div>
               <div className="mt-2.5 flex h-11 items-end gap-1.5">
                 {[40, 55, 48, 70, 66, 85, 94].map((v, i) => (
@@ -169,7 +169,7 @@ export function CloudlightHero({
                   <span className="truncate">https://lpknusantara.siapterbang.id/dashboard</span>
                 </div>
                 <div className="hidden shrink-0 items-center gap-2 text-[11px] font-medium text-[#b9a6ff] sm:flex">
-                  <span>7 Role RBAC Aktif</span>
+                  <span>6 Role Internal LPK</span>
                 </div>
               </div>
 
@@ -206,7 +206,7 @@ export function CloudlightHero({
                       Keuangan & Talangan
                     </div>
                     <div className="flex items-center justify-between rounded-xl bg-[#ffab94]/20 px-3 py-1.5 text-[#a93f22]">
-                      <span>Approval Owner</span>
+                      <span>Approval Direktur</span>
                       <span className="rounded-full bg-[#a93f22] px-1.5 text-[10px] text-[#ffffff]">2</span>
                     </div>
                   </div>
@@ -217,18 +217,18 @@ export function CloudlightHero({
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
                       <p className="text-[10.5px] font-semibold uppercase tracking-wider text-[#747679]">
-                        MONITORING REAL-TIME LINTAS DIVISI
+                        KENDALI PENUH OPERASIONAL & FINANSIAL LPK
                       </p>
                       <h2 className="text-[18px] font-bold tracking-tight text-[#222326] sm:text-[20px]">
-                        Ringkasan Operasional & Kesiapan Terbang
+                        Ringkasan Kesiapan Kandidat & Kas LPK
                       </h2>
                     </div>
                     <span className="rounded-full bg-[#31ce01]/15 px-3 py-1 text-[11px] font-bold text-[#1e8300]">
-                      ● 5 Cross-Role Locks Aktif
+                      ● 5 Kunci Lintas Divisi Aktif
                     </span>
                   </div>
 
-                  {/* 3 Bevel-Style Circular Gauge Cards (Responsive 1-col on phone, 3-col on tablet+) */}
+                  {/* 3 Bevel-Style Circular Gauge Cards */}
                   <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
                     {[
                       { title: "Kesiapan Bahasa N4", pct: "88%", sub: "42 Siswa Layak Mensetsu", color: "#31ce01", offset: "16" },
@@ -262,11 +262,11 @@ export function CloudlightHero({
                     ))}
                   </div>
 
-                  {/* Desktop Candidate Pipeline Table (Responsive on mobile & desktop) */}
+                  {/* Desktop Candidate Pipeline Table */}
                   <div className="mt-4 rounded-[16px] bg-[#ffffff] p-3.5 shadow-2xs ring-1 ring-[#222326]/5 sm:p-4">
                     <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#ebf0f8] pb-2.5 text-[11px] font-semibold text-[#747679]">
                       <span>KANDIDAT SIAP MENSETSU & KEBERANGKATAN</span>
-                      <span className="text-[#415eee]">Auto-Generate Rirekisho JIS →</span>
+                      <span className="text-[#415eee]">1-Klik Cetak Rirekisho JIS →</span>
                     </div>
                     <div className="mt-2.5 space-y-2 text-[12px]">
                       {[
@@ -293,7 +293,7 @@ export function CloudlightHero({
             </div>
           </div>
 
-          {/* Right Floating Widgets Column (Desktop XL) */}
+          {/* Right Floating Widgets Column */}
           <div
             aria-hidden="true"
             className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
