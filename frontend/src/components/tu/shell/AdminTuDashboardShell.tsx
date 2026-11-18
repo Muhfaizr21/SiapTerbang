@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { tuStyles as styles } from "@/components/tu/styles/tu-theme";
 import type {
@@ -40,9 +40,47 @@ import { TuPemberkasanFeature } from "@/components/tu/pemberkasan/TuPemberkasanF
 import { TuSuratFeature } from "@/components/tu/surat/TuSuratFeature";
 import { TuOffboardingFeature } from "@/components/tu/offboarding/TuOffboardingFeature";
 
-export function AdminTuDashboardShell() {
-  const [activeTab, setActiveTab] = useState<TuMenuTab>("overview");
+export function AdminTuDashboardShell({
+  initialTab = "overview",
+}: {
+  readonly initialTab?: TuMenuTab;
+} = {}) {
+  const [activeTab, setActiveTab] = useState<TuMenuTab>(initialTab);
   const [searchQuery, setSearchQuery] = useState<string>("");
+
+  useEffect(() => {
+    setActiveTab(initialTab);
+  }, [initialTab]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const pathname = window.location.pathname;
+      const parts = pathname.split("/").filter(Boolean);
+      const last = parts[parts.length - 1];
+      if (
+        last === "asrama" ||
+        last === "ppdb" ||
+        last === "pemberkasan" ||
+        last === "surat" ||
+        last === "offboarding"
+      ) {
+        setActiveTab(last);
+      } else {
+        setActiveTab("overview");
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const handleNavigateTab = (tab: TuMenuTab) => {
+    setActiveTab(tab);
+    const targetUrl =
+      tab === "overview" ? "/dashboard/tu" : `/dashboard/tu/${tab}`;
+    if (typeof window !== "undefined") {
+      window.history.pushState(null, "", targetUrl);
+    }
+  };
   const [students, setStudents] =
     useState<readonly StudentRecord[]>(INITIAL_TU_STUDENTS);
   const [rooms, setRooms] =
@@ -392,7 +430,7 @@ export function AdminTuDashboardShell() {
             <button
               type="button"
               aria-label="Ringkas menu sidebar"
-              onClick={() => setActiveTab("overview")}
+              onClick={() => handleNavigateTab("overview")}
               className={styles.sidebarCollapseBtn}
             >
               <svg
@@ -440,7 +478,7 @@ export function AdminTuDashboardShell() {
           <nav className={styles.sidebarNavList} aria-label="Menu Utama Admin TU">
             <button
               type="button"
-              onClick={() => setActiveTab("overview")}
+              onClick={() => handleNavigateTab("overview")}
               className={
                 activeTab === "overview"
                   ? styles.sidebarMenuItemActive
@@ -468,7 +506,7 @@ export function AdminTuDashboardShell() {
 
             <button
               type="button"
-              onClick={() => setActiveTab("ppdb")}
+              onClick={() => handleNavigateTab("ppdb")}
               className={
                 activeTab === "ppdb"
                   ? styles.sidebarMenuItemActive
@@ -505,7 +543,7 @@ export function AdminTuDashboardShell() {
 
             <button
               type="button"
-              onClick={() => setActiveTab("asrama")}
+              onClick={() => handleNavigateTab("asrama")}
               className={
                 activeTab === "asrama"
                   ? styles.sidebarMenuItemActive
@@ -531,7 +569,7 @@ export function AdminTuDashboardShell() {
 
             <button
               type="button"
-              onClick={() => setActiveTab("pemberkasan")}
+              onClick={() => handleNavigateTab("pemberkasan")}
               className={
                 activeTab === "pemberkasan"
                   ? styles.sidebarMenuItemActive
@@ -570,7 +608,7 @@ export function AdminTuDashboardShell() {
           <nav className={styles.sidebarNavList} aria-label="Menu Dokumen & Laporan">
             <button
               type="button"
-              onClick={() => setActiveTab("surat")}
+              onClick={() => handleNavigateTab("surat")}
               className={
                 activeTab === "surat"
                   ? styles.sidebarMenuItemActive
@@ -596,7 +634,7 @@ export function AdminTuDashboardShell() {
 
             <button
               type="button"
-              onClick={() => setActiveTab("offboarding")}
+              onClick={() => handleNavigateTab("offboarding")}
               className={
                 activeTab === "offboarding"
                   ? styles.sidebarMenuItemActive
@@ -656,7 +694,7 @@ export function AdminTuDashboardShell() {
             <button
               type="button"
               aria-label="Buka peringatan dokumen H-30"
-              onClick={() => setActiveTab("pemberkasan")}
+              onClick={() => handleNavigateTab("pemberkasan")}
               className={styles.sidebarYellowArrowBtn}
             >
               →
@@ -689,7 +727,7 @@ export function AdminTuDashboardShell() {
             <button
               type="button"
               aria-label="Generator Surat Resmi"
-              onClick={() => setActiveTab("surat")}
+              onClick={() => handleNavigateTab("surat")}
               className={styles.headerCircleBtn}
               title="Generator Surat Resmi"
             >
@@ -787,7 +825,7 @@ export function AdminTuDashboardShell() {
             monthlyStats={MONTHLY_INTAKE_STATS}
             scheduleTasks={scheduleTasks}
             onToggleTask={handleToggleTask}
-            onNavigateTab={setActiveTab}
+            onNavigateTab={handleNavigateTab}
           />
         )}
 
