@@ -16,11 +16,13 @@ import {
 
 interface TuPpdbFeatureProps {
   readonly students: readonly StudentRecord[];
-  readonly onAddApplicant: (input: NewApplicantFormInput) => string | null;
+  readonly onAddApplicant: (
+    input: NewApplicantFormInput
+  ) => string | null | Promise<string | null>;
   readonly onEvaluateAndActivate: (
     studentId: string,
     input: PhysicalSelectionFormInput
-  ) => void;
+  ) => void | Promise<void>;
 }
 
 export function TuPpdbFeature({
@@ -82,7 +84,7 @@ export function TuPpdbFeature({
     });
   };
 
-  const handleSubmitNewApplicant = (e: React.FormEvent) => {
+  const handleSubmitNewApplicant = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError(null);
 
@@ -95,7 +97,7 @@ export function TuPpdbFeature({
       return;
     }
 
-    const err = onAddApplicant(newApplicant);
+    const err = await onAddApplicant(newApplicant);
     if (err) {
       setFormError(err);
       return;

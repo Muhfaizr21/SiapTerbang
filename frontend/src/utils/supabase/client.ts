@@ -8,8 +8,13 @@ const supabaseUrl =
 const supabasePublishableKey =
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
   process.env.SUPABASE_PUBLISHABLE_KEY ||
-  "";
+  "sb_publishable_0EdLSo1L8IwJBF6J87Ydiw_XwVUzKvH";
 
 export function createBrowserSupabaseClient() {
-  return createClient(supabaseUrl, supabasePublishableKey);
+  return createClient(supabaseUrl, supabasePublishableKey, {
+    auth: {
+      persistSession: true,
+      autoRefreshToken: true,
+    },
+  });
 }

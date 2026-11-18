@@ -17,7 +17,7 @@ interface TuSuratFeatureProps {
     readonly destinationAgency: string;
     readonly signerName: string;
     readonly signerRole: string;
-  }) => OfficialLetterRecord | null;
+  }) => OfficialLetterRecord | null | Promise<OfficialLetterRecord | null>;
 }
 
 const LETTER_TYPE_LABELS: Record<OfficialLetterType, string> = {
@@ -61,11 +61,11 @@ export function TuSuratFeature({
     }
   };
 
-  const handleGenerateAndPrint = (e: React.FormEvent) => {
+  const handleGenerateAndPrint = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedStudent) return;
 
-    const created = onCreateLetter({
+    const created = await onCreateLetter({
       studentId: selectedStudent.id,
       letterType,
       destinationAgency,
