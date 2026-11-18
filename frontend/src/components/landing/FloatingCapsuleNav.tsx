@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { NavLinkItem } from "@/types/landing";
 
 export interface FloatingCapsuleNavProps {
   readonly links: ReadonlyArray<NavLinkItem>;
-  readonly onOpenWorkspaceModal: (initialRole?: string) => void;
+  readonly onOpenWorkspaceModal?: (initialRole?: string) => void;
 }
 
 export function FloatingCapsuleNav({
   links,
-  onOpenWorkspaceModal,
 }: FloatingCapsuleNavProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -58,13 +58,12 @@ export function FloatingCapsuleNav({
         </div>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <button
-            type="button"
-            onClick={() => onOpenWorkspaceModal("Direktur LPK")}
+          <Link
+            href="/login"
             className="shrink-0 rounded-[128px] bg-[#1f2025] px-4 py-2 text-[13.5px] font-semibold leading-tight text-[#ebf0f8] transition-colors hover:bg-[#000000] sm:px-5 sm:text-[15px]"
           >
             Masuk Portal
-          </button>
+          </Link>
 
           {/* Mobile Menu Toggle Button */}
           <button
@@ -111,16 +110,13 @@ export function FloatingCapsuleNav({
             ))}
           </div>
           <div className="mt-3 border-t border-[#ebf0f8] pt-3 sm:hidden">
-            <button
-              type="button"
-              onClick={() => {
-                setMobileOpen(false);
-                onOpenWorkspaceModal("Direktur LPK");
-              }}
-              className="min-h-[44px] w-full rounded-[128px] bg-[#ebf0f8] text-[14.5px] font-semibold text-[#222326]"
+            <Link
+              href="/login"
+              onClick={() => setMobileOpen(false)}
+              className="flex min-h-[44px] w-full items-center justify-center rounded-[128px] bg-[#ebf0f8] text-[14.5px] font-semibold text-[#222326]"
             >
               Masuk Portal LPK
-            </button>
+            </Link>
           </div>
         </div>
       )}
