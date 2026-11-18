@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import type { Metadata } from "next";
 import { AdminTuDashboardShell } from "@/components/tu/shell/AdminTuDashboardShell";
 import type { TuMenuTab } from "@/types/tu";
@@ -27,6 +28,18 @@ interface PageProps {
   readonly params: Promise<{ tab: string }>;
 }
 
+export function generateStaticParams() {
+  return [
+    { tab: "overview" },
+    { tab: "ppdb" },
+    { tab: "asrama" },
+    { tab: "data-induk" },
+    { tab: "pemberkasan" },
+    { tab: "surat" },
+    { tab: "offboarding" },
+  ];
+}
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -47,8 +60,27 @@ export async function generateMetadata({
   };
 }
 
-export default async function AdminTuTabPage({ params }: PageProps) {
+async function TuTabContent({ params }: PageProps) {
   const { tab } = await params;
   const initialTab = resolveTab(tab);
   return <AdminTuDashboardShell initialTab={initialTab} />;
+}
+
+export default function AdminTuTabPage(props: PageProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen w-full items-center justify-center bg-[#141518] text-[#ffe11d]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#ffe11d] border-t-transparent" />
+            <span className="text-xs font-semibold tracking-wider text-[#e6e8ec] uppercase">
+              Memuat Modul Admin TU...
+            </span>
+          </div>
+        </div>
+      }
+    >
+      <TuTabContent {...props} />
+    </Suspense>
+  );
 }
