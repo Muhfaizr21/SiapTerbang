@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "sh ../scripts/dev-all.sh",
+    "dev:frontend": "next dev",
+    "dev:backend": "cd ../backend && go run ./cmd/api",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",

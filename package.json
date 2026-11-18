@@ -1,0 +1,14 @@
+{
+  "name": "siapterbang-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SiapTerbang Multi-Tenant SaaS LPK (Next.js Frontend + Golang Backend)",
+  "scripts": {
+    "dev": "sh ./scripts/dev-all.sh",
+    "dev:frontend": "cd frontend && npm run dev:frontend",
+    "dev:backend": "cd backend && go run ./cmd/api",
+    "build": "cd frontend && npm run build",
+    "typecheck": "cd frontend && npm run typecheck",
+    "lint": "cd frontend && npm run lint"
+  }
+}
