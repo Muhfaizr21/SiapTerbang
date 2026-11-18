@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { LoginFormValues, LoginValidationErrors } from "@/types/auth";
 import { SIX_LPK_DEMO_ACCOUNTS } from "@/domain/auth-demo-accounts";
 
@@ -361,6 +362,16 @@ export function LoginFormCard() {
               </div>
             )}
           </div>
+          {/* Link to Register */}
+          <p className="pt-1 text-center text-[13px] text-[#747679]">
+            Belum memiliki akun LPK?{" "}
+            <Link
+              href="/register"
+              className="font-semibold text-[#1f2025] underline decoration-[#1f2025]/30 underline-offset-2 hover:decoration-[#1f2025]"
+            >
+              Daftar sekarang
+            </Link>
+          </p>
         </form>
       )}
     </div>

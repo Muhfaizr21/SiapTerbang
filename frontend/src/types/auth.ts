@@ -10,6 +10,27 @@ export interface LoginValidationErrors {
   general?: string;
 }
 
+export interface RegisterFormValues {
+  readonly fullName: string;
+  readonly lpkName: string;
+  readonly email: string;
+  readonly whatsapp: string;
+  readonly subdomain: string;
+  readonly password: string;
+  readonly agreeTerms?: boolean;
+}
+
+export interface RegisterValidationErrors {
+  fullName?: string;
+  lpkName?: string;
+  email?: string;
+  whatsapp?: string;
+  subdomain?: string;
+  password?: string;
+  agreeTerms?: string;
+  general?: string;
+}
+
 export interface DemoAccountOption {
   readonly id: string;
   readonly roleName: string;
