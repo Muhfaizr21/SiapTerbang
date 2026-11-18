@@ -61,17 +61,9 @@ export function FloatingCapsuleNav({
           <button
             type="button"
             onClick={() => onOpenWorkspaceModal("Direktur LPK")}
-            className="hidden rounded-full px-3 py-1.5 text-[15px] font-medium text-[#222326] transition-colors hover:bg-[#ebf0f8] sm:inline-block"
-          >
-            Masuk Portal
-          </button>
-
-          <button
-            type="button"
-            onClick={() => onOpenWorkspaceModal("Demo Gratis 14 Hari")}
             className="shrink-0 rounded-[128px] bg-[#1f2025] px-4 py-2 text-[13.5px] font-semibold leading-tight text-[#ebf0f8] transition-colors hover:bg-[#000000] sm:px-5 sm:text-[15px]"
           >
-            Jadwalkan Demo LPK
+            Masuk Portal
           </button>
 
           {/* Mobile Menu Toggle Button */}
