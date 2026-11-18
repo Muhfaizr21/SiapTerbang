@@ -17,7 +17,7 @@ export function CloudlightHero({
       className="flex min-h-[100svh] w-full justify-center overflow-clip px-2 pt-2 pb-0"
     >
       <div className="bevel-hero-sky relative w-full overflow-hidden rounded-[24px] pt-24 sm:pt-28">
-        {/* Full-Container Unified Airplane & Sky Backdrop (No hard horizontal cut-off line, soft radial clear-zone behind headline text) */}
+        {/* Full-Container Unified Airplane & Sky Backdrop */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-[24px]"
@@ -30,7 +30,6 @@ export function CloudlightHero({
             fetchPriority="high"
             className="h-full w-full object-cover object-[50%_68%] opacity-45 mix-blend-multiply scale-105"
           />
-          {/* Radial clear-zone behind the centered typography + smooth vertical blend into #fff9ee at the bottom */}
           <div
             className="absolute inset-0"
             style={{
@@ -49,7 +48,7 @@ export function CloudlightHero({
           className="pointer-events-none absolute inset-x-0 top-0 z-10 mx-auto w-full rounded-t-[24px] object-cover opacity-85 mix-blend-screen"
         />
 
-        {/* Hero Copy Block (100% Bevel Scale: Clean 2-Line 80px H1, 24px Subtitle, Stars, Black CTA Button) */}
+        {/* Hero Copy Block */}
         <div className="relative z-20 mx-auto flex max-w-[920px] flex-col items-center px-4 text-center">
           <h1 id="hero-heading" className="bevel-hero-display max-w-[780px]">
             Pendamping Operasional LPK Terkoneksi
@@ -59,7 +58,6 @@ export function CloudlightHero({
             Kelola seluruh operasional LPK Anda di satu dashboard web desktop, mulai dari pemberkasan, disiplin asrama, dan Rirekisho otomatis hingga dana talangan.
           </p>
 
-          {/* Rating Strip + Charcoal Action Button (Exact Bevel Hero sequence) */}
           <div className="mt-7 flex flex-col items-center gap-3.5">
             <div className="flex items-center gap-2">
               <div className="flex items-center gap-0.5 text-[#ffca00]" aria-label="Rating 4.9 dari 5">
@@ -111,8 +109,8 @@ export function CloudlightHero({
         </div>
 
         {/* .hero_bottom: Web Desktop SaaS Dashboard Showcase + Balanced Floating Widget Columns */}
-        <div className="bevel-hero-bottom-mask relative z-20 mx-auto mt-10 flex w-full max-w-[1400px] items-start justify-center gap-5 px-4 pt-2 pb-10">
-          {/* Left Floating Widgets Column */}
+        <div className="bevel-hero-bottom-mask relative z-20 mx-auto mt-10 flex w-full max-w-[1400px] flex-col items-center justify-center gap-5 px-3 pt-2 pb-10 sm:px-4 xl:flex-row xl:items-start">
+          {/* Left Floating Widgets Column (Desktop XL) */}
           <div
             aria-hidden="true"
             className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
@@ -158,19 +156,19 @@ export function CloudlightHero({
 
           {/* Center Web Desktop SaaS Browser Window */}
           <div className="relative z-20 w-full max-w-[820px] shrink-0">
-            <div className="overflow-hidden rounded-[24px] bg-[#1f2025] p-2.5 shadow-[0_28px_70px_-15px_rgba(31,32,37,0.38)] ring-1 ring-[#ffffff]/30">
+            <div className="overflow-hidden rounded-[22px] bg-[#1f2025] p-2 shadow-[0_28px_70px_-15px_rgba(31,32,37,0.38)] ring-1 ring-[#ffffff]/30 sm:rounded-[24px] sm:p-2.5">
               {/* macOS Browser Top Chrome Bar */}
-              <div className="flex items-center justify-between rounded-t-[16px] bg-[#141518] px-4 py-2.5 text-[#ebf0f8]">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-[#ff5f56]" />
-                  <span className="h-3 w-3 rounded-full bg-[#ffbd2e]" />
-                  <span className="h-3 w-3 rounded-full bg-[#27c93f]" />
+              <div className="flex items-center justify-between gap-2 rounded-t-[14px] bg-[#141518] px-3 py-2 text-[#ebf0f8] sm:rounded-t-[16px] sm:px-4 sm:py-2.5">
+                <div className="flex shrink-0 items-center gap-1.5 sm:gap-2">
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f56] sm:h-3 sm:w-3" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#ffbd2e] sm:h-3 sm:w-3" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-[#27c93f] sm:h-3 sm:w-3" />
                 </div>
-                <div className="flex items-center gap-2 rounded-lg bg-[#1f2025] px-4 py-1 font-mono text-[12px] text-[#ebf0f8]/90 ring-1 ring-[#ffffff]/10">
-                  <span className="h-2 w-2 rounded-full bg-[#31ce01]" />
-                  <span>https://lpknusantara.siapterbang.id/dashboard</span>
+                <div className="flex min-w-0 items-center gap-1.5 rounded-lg bg-[#1f2025] px-2.5 py-1 font-mono text-[10.5px] text-[#ebf0f8]/90 ring-1 ring-[#ffffff]/10 sm:px-4 sm:text-[12px]">
+                  <span className="h-2 w-2 shrink-0 rounded-full bg-[#31ce01]" />
+                  <span className="truncate">https://lpknusantara.siapterbang.id/dashboard</span>
                 </div>
-                <div className="flex items-center gap-2 text-[11px] font-medium text-[#b9a6ff]">
+                <div className="hidden shrink-0 items-center gap-2 text-[11px] font-medium text-[#b9a6ff] sm:flex">
                   <span>7 Role RBAC Aktif</span>
                 </div>
               </div>
@@ -178,7 +176,7 @@ export function CloudlightHero({
               {/* Web Desktop Dashboard Content */}
               <div className="grid grid-cols-12 bg-[#f8f9fc] text-[#222326]">
                 {/* Desktop Sidebar Navigation */}
-                <div className="col-span-3 hidden border-r border-[#ebf0f8] bg-[#ffffff] p-4 sm:block">
+                <div className="col-span-3 hidden border-r border-[#ebf0f8] bg-[#ffffff] p-4 md:block">
                   <div className="flex items-center gap-2 border-b border-[#ebf0f8] pb-3">
                     <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#1f2025] text-[11px] font-bold text-[#ffffff]">
                       ST
@@ -215,13 +213,13 @@ export function CloudlightHero({
                 </div>
 
                 {/* Desktop Main Workspace */}
-                <div className="col-span-12 p-5 sm:col-span-9">
+                <div className="col-span-12 p-4 sm:p-5 md:col-span-9">
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <div>
-                      <p className="text-[11px] font-semibold uppercase tracking-wider text-[#747679]">
+                      <p className="text-[10.5px] font-semibold uppercase tracking-wider text-[#747679]">
                         MONITORING REAL-TIME LINTAS DIVISI
                       </p>
-                      <h2 className="text-[20px] font-bold tracking-tight text-[#222326]">
+                      <h2 className="text-[18px] font-bold tracking-tight text-[#222326] sm:text-[20px]">
                         Ringkasan Operasional & Kesiapan Terbang
                       </h2>
                     </div>
@@ -230,15 +228,15 @@ export function CloudlightHero({
                     </span>
                   </div>
 
-                  {/* 3 Bevel-Style Circular Gauge Cards inside Desktop Dashboard */}
-                  <div className="mt-4 grid grid-cols-3 gap-3">
+                  {/* 3 Bevel-Style Circular Gauge Cards (Responsive 1-col on phone, 3-col on tablet+) */}
+                  <div className="mt-4 grid grid-cols-1 gap-2.5 sm:grid-cols-3 sm:gap-3">
                     {[
                       { title: "Kesiapan Bahasa N4", pct: "88%", sub: "42 Siswa Layak Mensetsu", color: "#31ce01", offset: "16" },
                       { title: "Disiplin Asrama", pct: "96%", sub: "0 Siswa Suspended (<100pt)", color: "#ffab94", offset: "6" },
                       { title: "Kelengkapan Berkas", pct: "100%", sub: "KTP, Paspor, MCU & ID CPMI", color: "#b9a6ff", offset: "0" },
                     ].map((g) => (
-                      <div key={g.title} className="flex items-center gap-3 rounded-[18px] bg-[#ffffff] p-3.5 shadow-2xs ring-1 ring-[#222326]/5">
-                        <svg width="52" height="52" viewBox="0 0 54 54" className="shrink-0" aria-hidden="true">
+                      <div key={g.title} className="flex items-center gap-3 rounded-[16px] bg-[#ffffff] p-3 shadow-2xs ring-1 ring-[#222326]/5">
+                        <svg width="48" height="48" viewBox="0 0 54 54" className="shrink-0" aria-hidden="true">
                           <circle cx="27" cy="27" r="21" stroke="#ebf0f8" strokeWidth="5" fill="none" />
                           <circle
                             cx="27"
@@ -264,9 +262,9 @@ export function CloudlightHero({
                     ))}
                   </div>
 
-                  {/* Desktop Candidate Pipeline Table */}
-                  <div className="mt-4 rounded-[18px] bg-[#ffffff] p-4 shadow-2xs ring-1 ring-[#222326]/5">
-                    <div className="flex items-center justify-between border-b border-[#ebf0f8] pb-2.5 text-[11px] font-semibold text-[#747679]">
+                  {/* Desktop Candidate Pipeline Table (Responsive on mobile & desktop) */}
+                  <div className="mt-4 rounded-[16px] bg-[#ffffff] p-3.5 shadow-2xs ring-1 ring-[#222326]/5 sm:p-4">
+                    <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#ebf0f8] pb-2.5 text-[11px] font-semibold text-[#747679]">
                       <span>KANDIDAT SIAP MENSETSU & KEBERANGKATAN</span>
                       <span className="text-[#415eee]">Auto-Generate Rirekisho JIS →</span>
                     </div>
@@ -276,11 +274,14 @@ export function CloudlightHero({
                         { name: "Ahmad Fauzi (NIS-048)", div: "Lulus N4 • Poin 0/100", fin: "Lunas Pra-Terbang", stage: "Siap Mensetsu Osaka" },
                         { name: "Budi Santoso (NIS-051)", div: "Lulus SSW • Poin 5/100", fin: "Lunas + Kuitansi QR", stage: "Tiket & Terbang" },
                       ].map((row) => (
-                        <div key={row.name} className="grid grid-cols-12 items-center rounded-xl bg-[#ebf0f8]/55 px-3 py-2">
-                          <span className="col-span-4 font-semibold text-[#222326]">{row.name}</span>
-                          <span className="col-span-3 text-[11px] text-[#747679]">{row.div}</span>
-                          <span className="col-span-3 text-[11px] font-medium text-[#1e8300]">{row.fin}</span>
-                          <span className="col-span-2 text-right font-mono text-[10.5px] font-bold text-[#415eee]">
+                        <div
+                          key={row.name}
+                          className="flex flex-col gap-1 rounded-xl bg-[#ebf0f8]/55 px-3 py-2.5 sm:grid sm:grid-cols-12 sm:items-center sm:gap-2"
+                        >
+                          <span className="font-semibold text-[#222326] sm:col-span-4">{row.name}</span>
+                          <span className="text-[11px] text-[#747679] sm:col-span-3">{row.div}</span>
+                          <span className="text-[11px] font-medium text-[#1e8300] sm:col-span-3">{row.fin}</span>
+                          <span className="font-mono text-[10.5px] font-bold text-[#415eee] sm:col-span-2 sm:text-right">
                             {row.stage}
                           </span>
                         </div>
@@ -292,7 +293,7 @@ export function CloudlightHero({
             </div>
           </div>
 
-          {/* Right Floating Widgets Column */}
+          {/* Right Floating Widgets Column (Desktop XL) */}
           <div
             aria-hidden="true"
             className="hidden w-[255px] shrink-0 flex-col gap-3.5 pt-8 xl:flex"
